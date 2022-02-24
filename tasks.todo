@@ -1,0 +1,10 @@
+Tasks:
+    ☐ seperate philosophers into separate subroutines
+        - each philosopher is an infinite whileloop with shared resources
+            ☐ define fork
+             - an int set to 0 or 1?
+
+    ☐ input validation
+        ☐ implement ft_sfatoi()
+            - returns 0 if success, -1 on failure
+            - sets value via pointer

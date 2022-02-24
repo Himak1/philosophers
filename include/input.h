@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atoi.h                                          :+:    :+:            */
+/*   input.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: zaiba <zaiba@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 16:05:14 by zaiba         #+#    #+#                 */
-/*   Updated: 2022/02/22 16:05:56 by zaiba         ########   odam.nl         */
+/*   Updated: 2022/02/24 15:15:29 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ATOI_H
-# define FT_ATOI_H
+#ifndef INPUT_H
+# define INPUT_H
 
-int	ft_atoi(const char *nptr);
+int ft_atoi(char *str);
 
 #endif
