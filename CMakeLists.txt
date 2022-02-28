@@ -23,7 +23,8 @@ add_subdirectory(tests)
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
 file(GLOB sources 
-	"${PROJECT_SOURCE_DIR}/src/*.c"
+        "${PROJECT_SOURCE_DIR}/src/*.c"
+        "${PROJECT_SOURCE_DIR}/src/input/*.c"
 	"${PROEJCT_SOURCE_DIR}/include/*.h"
 	)
 

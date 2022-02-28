@@ -6,12 +6,12 @@
 /*   By: zaiba <zaiba@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 15:08:17 by zaiba         #+#    #+#                 */
-/*   Updated: 2022/02/22 16:13:44 by zaiba         ########   odam.nl         */
+/*   Updated: 2022/02/24 15:13:32 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../include/ft_atoi.h"
+#include "../include/input.h"
 
 int	main(int argc, char *argvp[])
 {
