@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(testdraft)
+project(philosophers)
 
 
 #-----Google Test Definitions-----#
@@ -16,7 +16,7 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
         ${CMAKE_BINARY_DIR}/googletest-build)
 
 enable_testing()
-add_subdirectory(testing)
+add_subdirectory(tests)
 
 #-----Source File Definitions-----#
 
@@ -27,4 +27,4 @@ file(GLOB sources
 	"${PROEJCT_SOURCE_DIR}/include/*.h"
 	)
 
-add_executable(testdraft ${sources})
+add_executable(philosophers ${sources})
