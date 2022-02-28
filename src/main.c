@@ -6,7 +6,7 @@
 /*   By: zaiba <zaiba@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 15:08:17 by zaiba         #+#    #+#                 */
-/*   Updated: 2022/02/24 15:13:32 by jhille        ########   odam.nl         */
+/*   Updated: 2022/02/28 21:39:42 by zaiba         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char *argvp[])
 {
 	int	a;
 
-	a = ft_atoi("100");
+	ft_sfatoi("100", &a);
 	printf("%d\n", a);
 	return (0);
 }
