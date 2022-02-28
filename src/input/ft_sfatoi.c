@@ -29,7 +29,7 @@ int	ft_sfatoi(const char *str, int *int_to_set)
 	while (str[i] > 47 && str[i] < 58)
 	{
 		ret = (ret * 10) + str[i] - '0';
-		if (ret > INT_MAX)
+		if (ret > INT_MAX + 1 && temp == 1)
 			return (-1);
 		i++;
 	}
