@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.1)
 
 project(philosophers)
 
-
 #-----Google Test Definitions-----#
 
 configure_file(CMakeLists.txt.in
@@ -20,12 +19,11 @@ add_subdirectory(tests)
 
 #-----Source File Definitions-----#
 
-include_directories("${PROJECT_SOURCE_DIR}/include")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 file(GLOB sources 
-        "${PROJECT_SOURCE_DIR}/src/*.c"
-        "${PROJECT_SOURCE_DIR}/src/input/*.c"
-	"${PROEJCT_SOURCE_DIR}/include/*.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/input/*.c"
 	)
 
 add_executable(philosophers ${sources})

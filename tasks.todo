@@ -6,5 +6,9 @@ Tasks:
 
     ☐ input validation
         ☐ implement ft_sfatoi()
-            - returns 0 if success, -1 on failure
-            - sets value via pointer
+            ✔ returns 0 if success, -1 on failure @done(22-03-04 16:05)
+            ✔ sets value via pointer @done(22-03-04 16:05)
+            ✔ finish last tests @done(22-03-04 16:21)
+            ☐ adjust ft_sfatoi to have built in protection to check for strings
+
+    ✔ add cli_utility functions @done(22-03-04 16:24)

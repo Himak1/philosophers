@@ -1,17 +1,17 @@
 
-include_directories("${PROJECT_SOURCE_DIR}/include")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../include")
 
 #-----Adding Source Files-----#
 file(GLOB sources 
-    "${PROJECT_SOURCE_DIR}/src/*.c"
-    "${PROJECT_SOURCE_DIR}/src/input/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../src/input/*.c"
     )
-list(REMOVE_ITEM sources "${PROJECT_SOURCE_DIR}/src/main.c")
+list(REMOVE_ITEM sources "${CMAKE_CURRENT_SOURCE_DIR}/../src/main.c")
 
 
 #-----Adding Cpp Files-----#
-file(GLOB tests "${PROJECT_SOURCE_DIR}/tests/*.cpp")
-list(REMOVE_ITEM tests "${PROJECT_SOURCE_DIR}/tests/main.cpp")
+file(GLOB tests "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+list(REMOVE_ITEM tests "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 
 foreach(file ${tests})
   set(name)
@@ -19,7 +19,7 @@ foreach(file ${tests})
   add_executable("${name}_tests"
     ${sources}
     ${file}
-    "${PROJECT_SOURCE_DIR}/tests/main.cpp")
+    "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
   target_link_libraries("${name}_tests" gtest_main)
   add_test(NAME ${name} COMMAND "${name}_tests")
 endforeach()
