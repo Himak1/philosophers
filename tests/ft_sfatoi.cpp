@@ -9,7 +9,8 @@ extern "C"
 ** ft_sfatoi() expects a string which has a valid integer number
 ** first character has to be a number or '-' character
 ** white space is not tolerated, nor are empty strings, nor strings devoid of a number
-** RETURN value is expected to be 0 with success, or -1 with overflow
+** non numeric characters are also forbidden
+** RETURN value is expected to be 0 with success. -1 with overflow or invalid strings.
 */
 
 TEST(ft_sfatoi, basic_tests)
@@ -92,7 +93,7 @@ TEST(ft_sfatoi, overflow)
 	ASSERT_EQ(value, 0);
 }
 
-TEST(ft_sfatoi, invalid_strings)
+TEST(isnum_str, invalid_strings)
 {
 	int	value;
 
@@ -107,4 +108,6 @@ TEST(ft_sfatoi, invalid_strings)
 	ASSERT_EQ(ft_sfatoi("-1 000", &value), -1);
 
 	ASSERT_EQ(ft_sfatoi("0  ", &value), -1);
+
+	ASSERT_EQ(ft_sfatoi("1-", &value), -1);
 }

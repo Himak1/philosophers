@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_sfatoi.c                                        :+:    :+:            */
+/*   isnum_str.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/24 12:36:02 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/04 22:10:22 by jhille        ########   odam.nl         */
+/*   Created: 2022/03/04 22:09:15 by jhille        #+#    #+#                 */
+/*   Updated: 2022/03/04 22:10:13 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input.h"
-
-int	ft_sfatoi(const char *str, int *int_to_set)
+int	isnum_str(const char *str)
 {
-	int		i;
-	long	temp;
-	long	ret;
+	int	i;
+	int	negative;
 
 	i = 0;
-	ret = 0;
-	temp = 0;
+	negative = 0;
 	if (str[i] == '-')
 	{
-		temp = 1;
+		negative = 1;
 		i++;
 	}
-	while (str[i] > 47 && str[i] < 58)
+	while (str[i])
 	{
-		ret = (ret * 10) + str[i] - '0';
-		if ((ret > MININT_INV && temp == 1) || ret > MAXINT && temp == 0)
+		if (str[i] < '0' || str[i] > '9')
 			return (-1);
 		i++;
 	}
-	if (temp == 1)
-		ret *= -1;
-	*int_to_set = ret;
+	if (i == 1 && negative == 1)
+		return (-1);
+	else if (i == 0)
+		return (-1);
 	return (0);
 }

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(philosophers)
+project(philo)
 
 #-----Google Test Definitions-----#
 
@@ -26,4 +26,4 @@ file(GLOB sources
         "${CMAKE_CURRENT_SOURCE_DIR}/src/input/*.c"
 	)
 
-add_executable(philosophers ${sources})
+add_executable(philo ${sources})

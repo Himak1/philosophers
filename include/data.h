@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_sfatoi.c                                        :+:    :+:            */
+/*   data.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/24 12:36:02 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/04 22:10:22 by jhille        ########   odam.nl         */
+/*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
+/*   Updated: 2022/03/04 22:04:51 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input.h"
+#ifndef DATA_H
+# define DATA_H
 
-int	ft_sfatoi(const char *str, int *int_to_set)
+typedef struct s_data
 {
-	int		i;
-	long	temp;
-	long	ret;
+	int	*forks;
+	int	die;
+	int	eat;
+	int	sleep;
+	int	num_eat;
+}		t_data;
 
-	i = 0;
-	ret = 0;
-	temp = 0;
-	if (str[i] == '-')
-	{
-		temp = 1;
-		i++;
-	}
-	while (str[i] > 47 && str[i] < 58)
-	{
-		ret = (ret * 10) + str[i] - '0';
-		if ((ret > MININT_INV && temp == 1) || ret > MAXINT && temp == 0)
-			return (-1);
-		i++;
-	}
-	if (temp == 1)
-		ret *= -1;
-	*int_to_set = ret;
-	return (0);
-}
+#endif

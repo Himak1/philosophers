@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_sfatoi.c                                        :+:    :+:            */
+/*   get_parameters.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/24 12:36:02 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/04 22:10:22 by jhille        ########   odam.nl         */
+/*   Created: 2022/03/04 21:46:30 by jhille        #+#    #+#                 */
+/*   Updated: 2022/03/04 22:11:01 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input.h"
 
-int	ft_sfatoi(const char *str, int *int_to_set)
+int	get_parameters(t_data *data, int argc, char *argv[])
 {
-	int		i;
-	long	temp;
-	long	ret;
+	int	ret;
 
-	i = 0;
-	ret = 0;
-	temp = 0;
-	if (str[i] == '-')
-	{
-		temp = 1;
-		i++;
-	}
-	while (str[i] > 47 && str[i] < 58)
-	{
-		ret = (ret * 10) + str[i] - '0';
-		if ((ret > MININT_INV && temp == 1) || ret > MAXINT && temp == 0)
-			return (-1);
-		i++;
-	}
-	if (temp == 1)
-		ret *= -1;
-	*int_to_set = ret;
 	return (0);
 }

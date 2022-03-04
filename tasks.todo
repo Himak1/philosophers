@@ -4,11 +4,24 @@ Tasks:
             ☐ define fork
              - an int set to 0 or 1?
 
+
+
+    ☐ take y arguments
+        - number of philosophers |  max 200
+        - time to die (milliseconds) | max MAXINT
+        - time to eat (milliseconds) | max MAXINT
+        - time to sleep (milliseconds) max MAXINT
+        - times each philosopher must eat (optional) | max MAXINT
+
+        ☐ ft_sfatoi returns -1 with overflow
+        ☐ isnum_str separate function which returns -1 for invalid string (doesn't check overflow)
+
+    
     ☐ input validation
-        ☐ implement ft_sfatoi()
+        ✔ implement ft_sfatoi() @done(22-03-04 18:12)
             ✔ returns 0 if success, -1 on failure @done(22-03-04 16:05)
             ✔ sets value via pointer @done(22-03-04 16:05)
             ✔ finish last tests @done(22-03-04 16:21)
-            ☐ adjust ft_sfatoi to have built in protection to check for strings
-
-    ✔ add cli_utility functions @done(22-03-04 16:24)
+            ✔ adjust ft_sfatoi to have built in protection to check for strings @done(22-03-04 18:12)
+                ✔ create static function that returns -1 with error @done(22-03-04 18:12)
+        ✔ add cli_utility functions @done(22-03-04 16:24)
