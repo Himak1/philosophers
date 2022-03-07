@@ -13,9 +13,12 @@ Tasks:
         - time to sleep (milliseconds) max MAXINT
         - times each philosopher must eat (optional) | max MAXINT
 
-        ☐ ft_sfatoi returns -1 with overflow
-        ☐ isnum_str separate function which returns -1 for invalid string (doesn't check overflow)
-
+        ✔ ft_sfatoi returns -1 with overflow @done(22-03-07 15:37)
+        ✔ isnum_str separate function which returns -1 for invalid string (doesn't check overflow) @done(22-03-07 15:37)
+        ☐ arg_limits returns -1 if:
+            - philos < 1
+            - times to eat < 1
+            - remaining parameters are < 0
     
     ☐ input validation
         ✔ implement ft_sfatoi() @done(22-03-04 18:12)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_sfatoi.cpp                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jhille <jhille@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/07 16:12:08 by jhille        #+#    #+#                 */
+/*   Updated: 2022/03/07 16:12:37 by jhille        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtest/gtest.h"
 
 extern "C"
@@ -91,23 +103,4 @@ TEST(ft_sfatoi, overflow)
 
 	ASSERT_EQ(ft_sfatoi("4147483649", &value), -1);
 	ASSERT_EQ(value, 0);
-}
-
-TEST(isnum_str, invalid_strings)
-{
-	int	value;
-
-	value = 0;
-
-	ASSERT_EQ(ft_sfatoi("-", &value), -1);
-
-	ASSERT_EQ(ft_sfatoi("", &value), -1);
-
-	ASSERT_EQ(ft_sfatoi("  -1023", &value), -1);
-
-	ASSERT_EQ(ft_sfatoi("-1 000", &value), -1);
-
-	ASSERT_EQ(ft_sfatoi("0  ", &value), -1);
-
-	ASSERT_EQ(ft_sfatoi("1-", &value), -1);
 }

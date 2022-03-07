@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   data.h                                             :+:    :+:            */
+/*   isnum_str.cpp                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/07 14:46:49 by jhille        ########   odam.nl         */
+/*   Created: 2022/03/07 16:11:52 by jhille        #+#    #+#                 */
+/*   Updated: 2022/03/07 16:15:24 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
+#include "gtest/gtest.h"
 
-typedef struct s_data
+extern "C"
 {
-	int	philos;
-	int	die;
-	int	eat;
-	int	sleep;
-	int	num_eat;
-	int	*forks;
-}		t_data;
+	#include "../include/input.h"
+}
 
-#endif
+TEST(isnum_str, invalid_strings)
+{
+	int	value;
+
+	value = 0;
+
+	ASSERT_EQ(isnum_str("-"), -1);
+
+	ASSERT_EQ(isnum_str(""), -1);
+
+	ASSERT_EQ(isnum_str("  -1023"), -1);
+
+	ASSERT_EQ(isnum_str("-1 000"), -1);
+
+	ASSERT_EQ(isnum_str("0  "), -1);
+
+	ASSERT_EQ(isnum_str("1-"), -1);
+}
