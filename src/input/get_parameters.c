@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 21:46:30 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/07 15:52:53 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/08 11:46:08 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,14 @@ static int	overflow_error(t_data *data, int argc, char *argv[])
 
 static int	arg_inrange(t_data *data, int argc)
 {
-	if (data->philos < 1 ||
-		data->die < 1 ||
-		data->eat < 1 ||
-		data->sleep < 1)
+	if (data->philos < 1
+		|| data->die < 1
+		|| data->eat < 1
+		||data->sleep < 1)
 		return (-1);
+	if (argc == 6 && data->num_eat < 1)
+		return (-1);
+	return (0);
 }
 
 int	get_parameters(t_data *data, int argc, char *argv[])

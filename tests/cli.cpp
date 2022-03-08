@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cli_tests.cpp                                      :+:    :+:            */
+/*   cli.cpp                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: zaiba <zaiba@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/28 20:10:24 by zaiba         #+#    #+#                 */
-/*   Updated: 2022/02/28 20:48:58 by zaiba         ########   odam.nl         */
+/*   Updated: 2022/03/08 11:23:54 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 TEST(cli_tests, return_code)
 {
 	int		ret;
-	char	cmd[] = "../philosophers";
+	char	cmd[] = "../philo";
 
 	ret = system(cmd);
-	ASSERT_EQ(ret, 0);
+	ASSERT_EQ(ret, 256);
 }

@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   data.h                                             :+:    :+:            */
+/*   philo_loop.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/07 14:46:49 by jhille        ########   odam.nl         */
+/*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
+/*   Updated: 2022/03/08 18:00:25 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
+#include <unistd.h>
+#include <stdio.h>
+#include "philo.h"
 
-typedef struct s_data
+void	philo_loop(t_data *data)
 {
-	int	philos;
-	int	die;
-	int	eat;
-	int	sleep;
-	int	num_eat;
-	int	*forks;
-}		t_data;
+	struct timeval	time;
 
-#endif
+	while (1)
+	{
+		gettimeofday(&time, NULL);
+		printf("time: %d\n", time.tv_sec);
+		sleep(1);
+	}
+}
