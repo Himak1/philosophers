@@ -6,12 +6,24 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/08 18:12:42 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/09 14:57:18 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "philo.h"
+
+/*
+int	set_abort(t_data *data)
+{
+	pthread_mutex_lock(data->forks + data->philos);
+	if (data-abort)
+	{
+
+		return (1);
+	}
+}
+*/
 
 int	run_threads(t_data *data)
 {
@@ -27,6 +39,7 @@ int	run_threads(t_data *data)
 		if (pthread_create(threads + 1, NULL, philo_loop, data) == -1)
 		{
 			// handle threads in case of error
+
 		}
 		i++;
 	}
@@ -39,6 +52,7 @@ pthread_mutex_t	*ini_mutexs(int philos)
 	int				i;
 
 	i = 0;
+	philos += 1;
 	forks = malloc(philos * sizeof(pthread_mutex_t));
 	if (forks)
 	{

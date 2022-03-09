@@ -1,6 +1,13 @@
 Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
+    - create philo_loop
+        ☐ finite state machine
+            ☐ handle conversion from milli to micro seconds
+                ☐ need to handle way to represent timing 
+                    ☐ subroutine eating
+                    ☐ subroutine think
+                    ☐ subroutine sleep
 
     ☐ create function that handles all mutexes in case of error
 
