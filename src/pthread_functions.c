@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/09 14:57:18 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/10 15:44:22 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	set_abort(t_data *data)
 		return (1);
 	}
 }
+
+
+
 */
 
 int	run_threads(t_data *data)
@@ -39,7 +42,7 @@ int	run_threads(t_data *data)
 		if (pthread_create(threads + 1, NULL, philo_loop, data) == -1)
 		{
 			// handle threads in case of error
-
+			
 		}
 		i++;
 	}

@@ -3,21 +3,17 @@ Tasks:
 
     - create philo_loop
         ☐ finite state machine
-            ☐ handle conversion from milli to micro seconds
-                ☐ need to handle way to represent timing 
-                    ☐ subroutine eating
-                    ☐ subroutine think
-                    ☐ subroutine sleep
+            ☐ subroutine eating
+            ☐ subroutine think
+            ☐ subroutine sleep
+        ☐ print timestamp
+            ☐ implement philo_age()
+
 
     ☐ create function that handles all mutexes in case of error
 
 
-    ✔ take y arguments @done(22-03-08 11:58)
-        - number of philosophers |  max 200
-        ✔ time to die (milliseconds) | max MAXINT @done(22-03-08 14:53)
-        ✔ time to eat (milliseconds) | max MAXINT @done(22-03-08 14:53)
-        ✔ time to sleep (milliseconds) max MAXINT @done(22-03-08 14:53)
-        ✔ times each philosopher must eat (optional) | max MAXINT @done(22-03-08 14:53)
+    ☐ number of philosophers |  max 200
 
 
     

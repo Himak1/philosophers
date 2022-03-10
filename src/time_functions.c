@@ -1,49 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   philo_loop.c                                       :+:    :+:            */
+/*   time_functions.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/10 16:09:45 by jhille        ########   odam.nl         */
+/*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
+/*   Updated: 2022/03/10 18:05:39 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 #include "philo.h"
 
-static int	eat(t_data *data)
+long	fact1k(long milli)
 {
-	
+	long	micro;
+
+	micro = milli * 1000;
+	return (micro);
 }
 
-static int	sleep()
+int	milsleep(int milsec)
 {
-	
-}
+	int		i;
+	long	sleepquota;
+	long	temp;
 
-void	*philo_loop(t_data *data)
-{
-	struct timeval	time;
-	int				t_sitrep;
-	int				state;
-
-	state = 0;
-	t_sitrep = 0;
+	i = 0;
+	sleepquota = fact1k((long)milsec);
 	while (1)
 	{
-		gettimeofday(&time, NULL);
-		printf("time: %d\n", time.tv_sec);
-		if (state == 1)
-			eat(data);
-		else if (state == 2)
-			sleep(data);
-		else if (state == 3)
-			think(data);
+		if (sleepquota > 1000000)
+		{
+			if (usleep(1000000) == -1)
+				return (-1);
+			sleepquota -= 1000000;
+		}
 		else
+		{
+			if (usleep(sleepquota) == -1)
+				return (-1);
 			break ;
-		sleep(1);
+		}
 	}
+	return (0);
+}
+
+long	get_thread_age(t_philo *philo)
+{
+	long	age;
+
+	age = philo->
+}
+
+int			print_timestamp(t_philo *philo)
+{
+
 }
