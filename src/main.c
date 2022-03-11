@@ -36,7 +36,6 @@ int	main(int argc, char *argv[])
 		free(data.forks);
 		return (-1);
 	}
-	sleep(10);
 	free(data.forks);
 	return (0);
 }
