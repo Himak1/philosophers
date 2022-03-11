@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 16:11:52 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/07 16:15:24 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/11 15:42:04 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ extern "C"
 
 TEST(isnum_str, invalid_strings)
 {
-	int	value;
-
-	value = 0;
-
 	ASSERT_EQ(isnum_str("-"), -1);
 
 	ASSERT_EQ(isnum_str(""), -1);

@@ -6,7 +6,7 @@
 /*   By: zaiba <zaiba@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 16:05:14 by zaiba         #+#    #+#                 */
-/*   Updated: 2022/03/08 17:59:44 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/11 14:22:07 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	get_parameters(t_data *data, int argc, char *argv[]);
 
-int ft_sfatoi(const char *str, int *int_to_set);
-int isnum_str(const char *str);
+int	ft_sfatoi(const char *str, int *int_to_set);
+int	isnum_str(const char *str);
 
 #endif

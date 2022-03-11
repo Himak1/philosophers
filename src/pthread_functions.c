@@ -6,11 +6,12 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/10 15:44:22 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/11 16:02:02 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "philo.h"
 
 /*
@@ -23,9 +24,6 @@ int	set_abort(t_data *data)
 		return (1);
 	}
 }
-
-
-
 */
 
 int	run_threads(t_data *data)
@@ -39,13 +37,13 @@ int	run_threads(t_data *data)
 		return (-1);
 	while (i < data->philos)
 	{
-		if (pthread_create(threads + 1, NULL, philo_loop, data) == -1)
+		if (pthread_create(threads + i, NULL, philo_loop, data) == -1)
 		{
-			// handle threads in case of error
-			
+			write(STDERR_FILENO, "Error while creating threads\n", 29);
 		}
 		i++;
 	}
+	pthread_join(threads[0], NULL);
 	return (0);
 }
 

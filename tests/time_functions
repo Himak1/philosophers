@@ -1,0 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    time_functions                                     :+:    :+:             #
+#                                                      +:+                     #
+#    By: jhille <jhille@student.codam.nl>             +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/03/11 11:50:31 by jhille        #+#    #+#                  #
+#    Updated: 2022/03/11 11:52:44 by jhille        ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+#include "gtest/gtest.h"
+
+extern "C"
+{
+	#include "../include/input.h"
+    #include "../include/data.h"
+}
+
+TEST()

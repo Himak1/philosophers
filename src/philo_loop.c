@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/10 16:09:45 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/11 15:54:21 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include "philo.h"
 
+/*
 static int	eat(t_data *data)
 {
 	
@@ -23,27 +24,23 @@ static int	sleep()
 {
 	
 }
+*/
 
-void	*philo_loop(t_data *data)
+void	*philo_loop(void *data)
 {
-	struct timeval	time;
-	int				t_sitrep;
-	int				state;
+	t_philo	philo;
+	//int		t_sitrep;
+	//int		state;
 
-	state = 0;
-	t_sitrep = 0;
+	gettimeofday(&philo.start, NULL);
+	data = 0;
+	data++;
+	//state = 0;
+	//t_sitrep = 0;
 	while (1)
 	{
-		gettimeofday(&time, NULL);
-		printf("time: %d\n", time.tv_sec);
-		if (state == 1)
-			eat(data);
-		else if (state == 2)
-			sleep(data);
-		else if (state == 3)
-			think(data);
-		else
-			break ;
+		gettimeofday(&philo.cur_time, NULL);
+		printf("%ld\n", get_thread_age(&philo));
 		sleep(1);
 	}
 }

@@ -7,8 +7,10 @@ Tasks:
             ☐ subroutine think
             ☐ subroutine sleep
         ☐ print timestamp
-            ☐ implement philo_age()
+            ☐ implement get_thread_age()
 
+    - two philos die at same time
+        - print first that dies
 
     ☐ create function that handles all mutexes in case of error
 

@@ -3,7 +3,8 @@
 extern "C"
 {
 	#include "../include/input.h"
-    #include "../include/data.h"
+    #include "../include/philo.h"
+    #include <pthread.h>
 }
 
 /*

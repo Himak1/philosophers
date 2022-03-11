@@ -20,10 +20,11 @@ add_subdirectory(tests)
 #-----Source File Definitions-----#
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(CMAKE_C_FLAGS "-Wall -Wextra -Werror -pthread")
 
 file(GLOB sources 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/input/*.c"
-	)
+        )
 
 add_executable(philo ${sources})

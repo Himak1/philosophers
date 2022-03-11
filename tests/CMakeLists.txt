@@ -7,7 +7,7 @@ file(GLOB sources
     "${CMAKE_CURRENT_SOURCE_DIR}/../src/input/*.c"
     )
 list(REMOVE_ITEM sources "${CMAKE_CURRENT_SOURCE_DIR}/../src/main.c")
-
+set(CMAKE_CXX_FLAGS "-pthread")
 
 #-----Adding Cpp Files-----#
 file(GLOB tests "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")

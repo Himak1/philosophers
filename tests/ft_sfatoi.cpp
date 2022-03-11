@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 16:12:08 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/07 16:12:37 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/11 14:51:32 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 extern "C"
 {
 	#include "../include/input.h"
+	#include <pthread.h>
 }
 
 /* 

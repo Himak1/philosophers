@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/10 18:05:39 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/11 15:39:50 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@ long	fact1k(long milli)
 
 int	milsleep(int milsec)
 {
-	int		i;
 	long	sleepquota;
-	long	temp;
 
-	i = 0;
 	sleepquota = fact1k((long)milsec);
 	while (1)
 	{
@@ -49,12 +46,17 @@ int	milsleep(int milsec)
 
 long	get_thread_age(t_philo *philo)
 {
-	long	age;
+	long	sec;
+	long	usec;
 
-	age = philo->
+	usec = (philo->cur_time.tv_usec - philo->start.tv_usec) / 1000;
+	sec = (philo->cur_time.tv_sec - philo->start.tv_sec) * 1000;
+	return (sec + usec);
 }
 
+/*
 int			print_timestamp(t_philo *philo)
 {
 
 }
+*/
