@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/11 15:39:50 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/11 16:42:20 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,8 @@ long	get_thread_age(t_philo *philo)
 	long	sec;
 	long	usec;
 
+	gettimeofday(&philo->cur_time, NULL);
 	usec = (philo->cur_time.tv_usec - philo->start.tv_usec) / 1000;
 	sec = (philo->cur_time.tv_sec - philo->start.tv_sec) * 1000;
 	return (sec + usec);
 }
-
-/*
-int			print_timestamp(t_philo *philo)
-{
-
-}
-*/
