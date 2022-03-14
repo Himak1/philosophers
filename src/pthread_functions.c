@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 17:08:36 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 17:35:26 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ pthread_t	init_philosophers(t_data *data)
 	i = 0;
 	if (malloc_philos(&threads, &philo_d))
 		return (-1);
-	while (i < data->philos)
+	while (i < data->num_philos)
 	{
 		philo_data[i]->id = i + 1;
 		philo_data[i]->shared = data;
@@ -71,12 +71,19 @@ pthread_t	init_philosophers(t_data *data)
 int	run_threads(t_data *data)
 {
 	pthread_t	*threads;
+	int			i;
 
-	data
+	i = 1;
+	if (pthread_mutex_init(data->abort_safe) == -1);
+		return (-1);
 	threads = init_philosophers(data);
 	if (!threads)
 		return (-1);
-
+	while (i < data->num_philos)
+	{
+		pthread_detach(threads[i]);
+		i++;
+	}
 	pthread_join(threads[0], NULL);
 	return (0);
 }

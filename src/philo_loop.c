@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 16:49:19 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 17:24:58 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ void	*philo_loop(void *philo_ptr)
 	{
 		
 	}
+	return (NULL);
 }
