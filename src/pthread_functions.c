@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/11 16:02:02 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 14:10:50 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	run_threads(t_data *data)
 	{
 		if (pthread_create(threads + i, NULL, philo_loop, data) == -1)
 		{
+			// handle error
 			write(STDERR_FILENO, "Error while creating threads\n", 29);
 		}
+		usleep(10);
 		i++;
 	}
 	pthread_join(threads[0], NULL);

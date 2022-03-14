@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/11 17:02:22 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 14:18:23 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,26 @@
 #include <stdio.h>
 #include "philo.h"
 
-/*
-static int	eat(t_data *data)
+static int	print_log(pthread_mutex_t *mic, long time
+					const char *message, int id)
 {
-	printf("%ld\n", get_thread_age(&philo));
+	pthread_mutex_lock(mic);
+	printf("%ld %d %s\n", time, id, message);
+	pthread_mutex_unlock(mic);
 }
 
-static int	sleep()
+static int	p_eat(t_data *data)
+{
+
+}
+
+/*
+static int	p_sleep()
 {
 	
 }
+
+static int	p_think
 */
 
 void	*philo_loop(void *data)
@@ -39,7 +49,7 @@ void	*philo_loop(void *data)
 	//t_sitrep = 0;
 	while (1)
 	{
-		printf("%ld\n", get_thread_age(&philo));
+		
 		sleep(1);
 	}
 }

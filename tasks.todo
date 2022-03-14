@@ -8,8 +8,6 @@ Tasks:
                 ☐ usleep
             ☐ subroutine think
             ☐ subroutine sleep
-        ✔ print timestamp @done(22-03-11 16:48)
-            ✔ implement get_thread_age() @done(22-03-11 16:38)
 
     - two philos die at same time
         - print first that dies
