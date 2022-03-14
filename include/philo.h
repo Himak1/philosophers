@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 15:49:57 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 16:50:32 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_philo
 	t_data			*shared;
 }					t_philo;
 
-pthread_mutex_t	*ini_mutexs(int philos);
+pthread_mutex_t	*init_mutexes(int philos);
 int				run_threads(t_data *data);
 
 long			get_thread_age(t_philo *philo);

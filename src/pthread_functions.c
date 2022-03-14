@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 15:50:06 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 17:08:36 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,49 @@ static int	malloc_philos(pthread_t **threads, t_philo **philo_data)
 	return (0);
 }
 
-int	run_threads(t_data *data)
+static pthread_t	*handle_thread_error(pthread_t *threads, t_philo *philo)
+{
+	free(threads);
+	free(philos);
+	write(STDERR_FILENO, "Error while creating threads\n", 29);
+	return (NULL);
+}
+
+pthread_t	init_philosophers(t_data *data)
 {
 	pthread_t	*threads;
-	t_philo		*philo;
+	t_philo		*philo_d;
 	int			i;
 
 	i = 0;
-	if (malloc_philos(&threads, &philo_data))
+	if (malloc_philos(&threads, &philo_d))
 		return (-1);
 	while (i < data->philos)
 	{
 		philo_data[i]->id = i + 1;
 		philo_data[i]->shared = data;
-		if (pthread_create(threads + i, NULL, philo_loop, philo_data + i) == -1)
-		{
-			// handle error
-			write(STDERR_FILENO, "Error while creating threads\n", 29);
-		}
+		if (pthread_create(threads + i, NULL, philo_loop, philo_d + i) == -1)
+			return (handle_thread_error(threads, philo_d);
 		usleep(10);
 		i++;
 	}
+	return (threads);
+}
+
+int	run_threads(t_data *data)
+{
+	pthread_t	*threads;
+
+	data
+	threads = init_philosophers(data);
+	if (!threads)
+		return (-1);
+
 	pthread_join(threads[0], NULL);
 	return (0);
 }
 
-pthread_mutex_t	*ini_mutexs(int philos)
+pthread_mutex_t	*init_mutexes(int philos)
 {
 	pthread_mutex_t	*forks;
 	int				i;
