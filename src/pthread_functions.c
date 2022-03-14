@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 14:10:50 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 15:50:06 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,33 @@ int	set_abort(t_data *data)
 }
 */
 
+static int	malloc_philos(pthread_t **threads, t_philo **philo_data)
+{
+	*threads = malloc(data->num_philos * sizeof(pthread_t));
+	*philos = malloc(data->num_philos * sizeof(t_philo));
+	if (*threads == NULL || *philos == NULL)
+	{
+		free(*threads);
+		free(*philos);
+		return (-1);
+	}
+	return (0);
+}
+
 int	run_threads(t_data *data)
 {
 	pthread_t	*threads;
+	t_philo		*philo;
 	int			i;
 
 	i = 0;
-	threads = malloc(data->philos * sizeof(pthread_t));
-	if (!threads)
+	if (malloc_philos(&threads, &philo_data))
 		return (-1);
 	while (i < data->philos)
 	{
-		if (pthread_create(threads + i, NULL, philo_loop, data) == -1)
+		philo_data[i]->id = i + 1;
+		philo_data[i]->shared = data;
+		if (pthread_create(threads + i, NULL, philo_loop, philo_data + i) == -1)
 		{
 			// handle error
 			write(STDERR_FILENO, "Error while creating threads\n", 29);

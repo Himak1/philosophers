@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 21:46:30 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/08 11:46:08 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 15:50:38 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	overflow_error(t_data *data, int argc, char *argv[])
 	int	status;
 
 	status = 0;
-	status += ft_sfatoi(argv[1], &data->philos);
+	status += ft_sfatoi(argv[1], &data->num_philos);
 	status += ft_sfatoi(argv[2], &data->die);
 	status += ft_sfatoi(argv[3], &data->eat);
 	status += ft_sfatoi(argv[4], &data->sleep);
@@ -49,7 +49,7 @@ static int	overflow_error(t_data *data, int argc, char *argv[])
 
 static int	arg_inrange(t_data *data, int argc)
 {
-	if (data->philos < 1
+	if (data->num_philos < 1
 		|| data->die < 1
 		|| data->eat < 1
 		||data->sleep < 1)

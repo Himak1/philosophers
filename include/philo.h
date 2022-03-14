@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 14:02:28 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/14 15:49:57 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_data
 {
-	int				philos;
+	int				num_philos;
 	int				die;
 	int				eat;
 	int				sleep;
@@ -32,6 +32,7 @@ typedef struct s_philo
 	int				id;
 	struct timeval	cur_time;
 	struct timeval	start;
+	t_data			*shared;
 }					t_philo;
 
 pthread_mutex_t	*ini_mutexs(int philos);
