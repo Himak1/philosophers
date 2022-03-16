@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 16:32:31 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/16 16:35:01 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	print_log(pthread_mutex_t *mic, long time, \
 
 static int	p_think(t_philo *philo_d)
 {
-	print_log(philo_d->shared->mic, get_thread_age(philo_d), \
-				"%ld %d Is thinking\n", philo_d->id);
+	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
+				"Is thinking", philo_d->id);
 	return (1);
 }
 
@@ -33,10 +33,12 @@ static int	p_eat(t_philo *philo_d)
 {
 	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
 	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-				"%ld %d Grabbed a fork\n", philo_d->id);
+				"%Grabbed a fork", philo_d->id);
 	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
 	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-				"%ld %d Grabbed a fork\n", philo_d->id);
+				"Grabbed a fork", philo_d->id);
+	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
+				"Is eating", philo_d->id);
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
 }
