@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 11:37:06 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/16 16:32:31 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,47 @@ static void	print_log(pthread_mutex_t *mic, long time, \
 	pthread_mutex_unlock(mic);
 }
 
-/*
-static int	p_eat(t_data *data)
+static int	p_think(t_philo *philo_d)
 {
-
+	print_log(philo_d->shared->mic, get_thread_age(philo_d), \
+				"%ld %d Is thinking\n", philo_d->id);
+	return (1);
 }
-*/
+
+static int	p_eat(t_philo *philo_d)
+{
+	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
+	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
+				"%ld %d Grabbed a fork\n", philo_d->id);
+	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
+	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
+				"%ld %d Grabbed a fork\n", philo_d->id);
+	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
+	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
+}
+
 
 /*
 static int	p_sleep()
 {
 	
 }
-
-static int	p_think
 */
 
-void	*philo_loop(void *philo_ptr)
+void	*philo_loop(void *philo_data)
 {
-	t_philo	*philo;
+	t_philo	*philo_d;
 	int		state;
 
-	philo = (t_philo *)philo_ptr;
-	gettimeofday(&philo->start, NULL);
+	philo_d = (t_philo *)philo_data;
+	gettimeofday(&philo_d->start, NULL);
 	state = 0;
 	while (1)
 	{
-
+		if (state == 0)
+			state = p_think(philo_d);
+		else if (state == 1)
+			state = p_eat(philo_d);
 	}
 	return (NULL);
 }

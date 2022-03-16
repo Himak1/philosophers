@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 15:05:15 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/16 15:10:29 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ long	fact1k(long milli)
 	return (micro);
 }
 
+/*
 void	milsleep(int milsec)
 {
 	long	sleepquota;
@@ -40,6 +41,7 @@ void	milsleep(int milsec)
 		}
 	}
 }
+*/
 
 void	safesleep(long sleepquota)
 {
@@ -51,9 +53,9 @@ void	safesleep(long sleepquota)
 	while (1)
 	{
 		if (sleepquota > 10)
-			milsleep(10);
+			usleep(10000);
 		else
-			milsleep(sleepquota);
+			usleep(sleepquota * 1000);
 		gettimeofday(&current, NULL);
 		time_passed = ((current.tv_usec - start.tv_usec) / 1000) + \
 						((current.tv_sec - start.tv_sec) * 1000);
