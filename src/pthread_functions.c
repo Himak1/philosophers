@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 11:24:49 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/16 16:37:28 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	set_abort(t_data *data)
 
 static int	malloc_philos(pthread_t **threads, t_philo **philo_d)
 {
-	*threads = malloc(data->num_philos * sizeof(pthread_t));
-	*philo_d = malloc(data->num_philos * sizeof(t_philo));
+	*threads = malloc(*philo_d->shared->num_philos * sizeof(pthread_t));
+	*philo_d = malloc(*philo_d->shared->num_philos * sizeof(t_philo));
 	if (*threads == NULL || *philo_d == NULL)
 	{
 		free(*threads);

@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 16:35:01 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/16 16:36:11 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	p_eat(t_philo *philo_d)
 				"Is eating", philo_d->id);
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
+	return (2);
 }
 
 
