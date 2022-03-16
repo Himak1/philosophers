@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 17:35:26 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/16 11:24:49 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	set_abort(t_data *data)
 }
 */
 
-static int	malloc_philos(pthread_t **threads, t_philo **philo_data)
+static int	malloc_philos(pthread_t **threads, t_philo **philo_d)
 {
 	*threads = malloc(data->num_philos * sizeof(pthread_t));
-	*philos = malloc(data->num_philos * sizeof(t_philo));
-	if (*threads == NULL || *philos == NULL)
+	*philo_d = malloc(data->num_philos * sizeof(t_philo));
+	if (*threads == NULL || *philo_d == NULL)
 	{
 		free(*threads);
 		free(*philos);
@@ -42,7 +42,7 @@ static int	malloc_philos(pthread_t **threads, t_philo **philo_data)
 static pthread_t	*handle_thread_error(pthread_t *threads, t_philo *philo)
 {
 	free(threads);
-	free(philos);
+	free(philo);
 	write(STDERR_FILENO, "Error while creating threads\n", 29);
 	return (NULL);
 }
@@ -58,8 +58,8 @@ pthread_t	init_philosophers(t_data *data)
 		return (-1);
 	while (i < data->num_philos)
 	{
-		philo_data[i]->id = i + 1;
-		philo_data[i]->shared = data;
+		philo_d[i]->id = i + 1;
+		philo_d[i]->shared = data;
 		if (pthread_create(threads + i, NULL, philo_loop, philo_d + i) == -1)
 			return (handle_thread_error(threads, philo_d);
 		usleep(10);

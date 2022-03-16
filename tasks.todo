@@ -5,7 +5,7 @@ Tasks:
         ☐ finite state machine
             ☐ subroutine eating
                 ☐ claim forks
-                ☐ usleep
+                ☐ custom usleep function which checks every couple of seconds
             ☐ subroutine think
             ☐ subroutine sleep
 
