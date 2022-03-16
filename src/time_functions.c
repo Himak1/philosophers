@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 12:13:31 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/16 15:05:15 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ long	fact1k(long milli)
 	return (micro);
 }
 
-int	milsleep(int milsec)
+void	milsleep(int milsec)
 {
 	long	sleepquota;
 
@@ -30,18 +30,37 @@ int	milsleep(int milsec)
 	{
 		if (sleepquota > 1000000)
 		{
-			if (usleep(1000000) == -1)
-				return (-1);
+			usleep(1000000);
 			sleepquota -= 1000000;
 		}
 		else
 		{
-			if (usleep(sleepquota) == -1)
-				return (-1);
+			usleep(sleepquota);
 			break ;
 		}
 	}
-	return (0);
+}
+
+void	safesleep(long sleepquota)
+{
+	struct timeval	start;
+	struct timeval	current;
+	long			time_passed;
+
+	gettimeofday(&start, NULL);
+	while (1)
+	{
+		if (sleepquota > 10)
+			milsleep(10);
+		else
+			milsleep(sleepquota);
+		gettimeofday(&current, NULL);
+		time_passed = ((current.tv_usec - start.tv_usec) / 1000) + \
+						((current.tv_sec - start.tv_sec) * 1000);
+		if (time_passed >= sleepquota)
+			return ;
+		sleepquota -= time_passed;
+	}
 }
 
 long	get_thread_age(t_philo *philo)
