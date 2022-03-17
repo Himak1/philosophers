@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/17 12:52:05 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/17 16:00:32 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,18 @@ void	milsleep(int milsec)
 }
 */
 
-int		amidead(t_philo *philo_d)
+long	compare_time(struct timeval *time1, struct timeval *time2)
 {
-	
+	gettimeofday(&time1, NULL);
+	return (((time1->tv_usec - time2->tv_usec) / 1000) + \
+			(time1->tv_sec - time2->tv_sec) * 1000);
+}	
+
+int	amidead(t_philo *philo_d)
+{
+	if (compare_time(&philo_d->cur_time, &philo_d->lastmeal) \
+	> philo_d->shared->die)
+		return (-1);
 }
 
 void	safesleep(long sleepquota)
