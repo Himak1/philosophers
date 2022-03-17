@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 16:36:11 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/17 12:43:10 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,25 @@ static int	p_eat(t_philo *philo_d)
 {
 	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
 	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-				"%Grabbed a fork", philo_d->id);
-	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
+				"Grabbed a fork", philo_d->id);
+	pthread_mutex_lock(philo_d->shared->forks + (philo_d->id + 1));
 	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
 				"Grabbed a fork", philo_d->id);
 	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
 				"Is eating", philo_d->id);
-	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
+	safesleep(philo_d->shared->eat);
+	pthread_mutex_unlock(philo_d->shared->forks + (philo_d->id + 1));
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
 	return (2);
 }
 
-
-/*
-static int	p_sleep()
+static int	p_sleep(t_philo *philo_d)
 {
-	
+	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
+			"Is sleeping", philo_d->id);
+	safesleep(philo_d->shared->sleep);
+	return (0);
 }
-*/
 
 void	*philo_loop(void *philo_data)
 {
@@ -59,6 +60,7 @@ void	*philo_loop(void *philo_data)
 
 	philo_d = (t_philo *)philo_data;
 	gettimeofday(&philo_d->start, NULL);
+	gettimeofday(&philo_d->lastmeal, NULL);
 	state = 0;
 	while (1)
 	{
@@ -66,6 +68,8 @@ void	*philo_loop(void *philo_data)
 			state = p_think(philo_d);
 		else if (state == 1)
 			state = p_eat(philo_d);
+		else if (state == 2)
+			state = p_sleep(philo_d);
 	}
 	return (NULL);
 }

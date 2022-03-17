@@ -3,10 +3,8 @@ Tasks:
 
     - create philo_loop
         ☐ finite state machine
+            ☐ create function which checks for death
             ☐ subroutine eating
-                ☐ claim forks
-                ☐ custom usleep function which checks every couple of seconds
-                    - 
             ☐ subroutine think
             ☐ subroutine sleep
 

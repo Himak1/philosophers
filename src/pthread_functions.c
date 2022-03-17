@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 16:37:28 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/17 11:51:20 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	set_abort(t_data *data)
 }
 */
 
-static int	malloc_philos(pthread_t **threads, t_philo **philo_d)
+static int	malloc_philos(pthread_t **threads, t_philo **philo_d, t_data *data)
 {
-	*threads = malloc(*philo_d->shared->num_philos * sizeof(pthread_t));
-	*philo_d = malloc(*philo_d->shared->num_philos * sizeof(t_philo));
+	*threads = malloc(data->num_philos * sizeof(pthread_t));
+	*philo_d = malloc(data->num_philos * sizeof(t_philo));
 	if (*threads == NULL || *philo_d == NULL)
 	{
 		free(*threads);
-		free(*philos);
+		free(*philo_d);
 		return (-1);
 	}
 	return (0);
@@ -47,21 +47,21 @@ static pthread_t	*handle_thread_error(pthread_t *threads, t_philo *philo)
 	return (NULL);
 }
 
-pthread_t	init_philosophers(t_data *data)
+pthread_t	*init_philosophers(t_data *data)
 {
 	pthread_t	*threads;
 	t_philo		*philo_d;
 	int			i;
 
 	i = 0;
-	if (malloc_philos(&threads, &philo_d))
-		return (-1);
+	if (malloc_philos(&threads, &philo_d, data) == -1)
+		return (NULL);
 	while (i < data->num_philos)
 	{
-		philo_d[i]->id = i + 1;
-		philo_d[i]->shared = data;
+		philo_d[i].id = i + 1;
+		philo_d[i].shared = data;
 		if (pthread_create(threads + i, NULL, philo_loop, philo_d + i) == -1)
-			return (handle_thread_error(threads, philo_d);
+			return (handle_thread_error(threads, philo_d));
 		usleep(10);
 		i++;
 	}
@@ -74,7 +74,8 @@ int	run_threads(t_data *data)
 	int			i;
 
 	i = 1;
-	if (pthread_mutex_init(data->abort_safe) == -1);
+	if (pthread_mutex_init(&data->abort_lock, NULL) \
+		|| pthread_mutex_init(&data->mic, NULL))
 		return (-1);
 	threads = init_philosophers(data);
 	if (!threads)

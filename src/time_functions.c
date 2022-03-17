@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/16 15:10:29 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/17 12:43:03 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ void	milsleep(int milsec)
 	}
 }
 */
+
+int		amidead(t_philo *philo_d)
+{
+	
+}
 
 void	safesleep(long sleepquota)
 {
