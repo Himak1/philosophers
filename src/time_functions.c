@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/17 16:00:32 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/18 12:39:31 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,32 @@ void	milsleep(int milsec)
 
 long	compare_time(struct timeval *time1, struct timeval *time2)
 {
-	gettimeofday(&time1, NULL);
+	gettimeofday(time1, NULL);
 	return (((time1->tv_usec - time2->tv_usec) / 1000) + \
 			(time1->tv_sec - time2->tv_sec) * 1000);
 }	
 
 int	amidead(t_philo *philo_d)
 {
-	if (compare_time(&philo_d->cur_time, &philo_d->lastmeal) \
+	int	ret;
+
+	ret = 0;
+	pthread_mutex_lock(&philo_d->shared->abort_lock);
+	if (philo_d->shared->abort == 1)
+		ret = 1;
+	if (ret != 1 && compare_time(&philo_d->cur_time, &philo_d->lastmeal) \
 	> philo_d->shared->die)
-		return (-1);
+	{
+		philo_d->shared->abort = 1;
+		print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
+			"died", philo_d->id);
+		ret = 1;
+	}
+	pthread_mutex_unlock(&philo_d->shared->abort_lock);
+	return (ret);
 }
 
-void	safesleep(long sleepquota)
+void	safesleep(t_philo *philo_d, long sleepquota)
 {
 	struct timeval	start;
 	struct timeval	current;
@@ -76,6 +89,7 @@ void	safesleep(long sleepquota)
 		if (time_passed >= sleepquota)
 			return ;
 		sleepquota -= time_passed;
+		amidead(philo_d);
 	}
 }
 
