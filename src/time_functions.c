@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/18 12:39:31 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/18 12:56:24 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,6 @@ long	fact1k(long milli)
 	micro = milli * 1000;
 	return (micro);
 }
-
-/*
-void	milsleep(int milsec)
-{
-	long	sleepquota;
-
-	sleepquota = fact1k((long)milsec);
-	while (1)
-	{
-		if (sleepquota > 1000000)
-		{
-			usleep(1000000);
-			sleepquota -= 1000000;
-		}
-		else
-		{
-			usleep(sleepquota);
-			break ;
-		}
-	}
-}
-*/
 
 long	compare_time(struct timeval *time1, struct timeval *time2)
 {

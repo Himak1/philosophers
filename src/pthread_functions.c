@@ -6,25 +6,13 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/17 11:51:20 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/18 13:00:39 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "philo.h"
-
-/*
-int	set_abort(t_data *data)
-{
-	pthread_mutex_lock(data->forks + data->philos);
-	if (data-abort)
-	{
-
-		return (1);
-	}
-}
-*/
 
 static int	malloc_philos(pthread_t **threads, t_philo **philo_d, t_data *data)
 {
