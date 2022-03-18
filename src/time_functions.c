@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/18 12:56:24 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/18 13:12:43 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int	amidead(t_philo *philo_d)
 	> philo_d->shared->die)
 	{
 		philo_d->shared->abort = 1;
-		print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-			"died", philo_d->id);
 		ret = 1;
 	}
 	pthread_mutex_unlock(&philo_d->shared->abort_lock);
