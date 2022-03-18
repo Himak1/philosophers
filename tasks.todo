@@ -1,12 +1,7 @@
 Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
-    - create philo_loop
-        ☐ finite state machine
-            ☐ create function which checks for death
-            ☐ subroutine eating
-            ☐ subroutine think
-            ☐ subroutine sleep
+    ☐ "./philo 3 10 5 3" causes multiple death messages
 
 
 
