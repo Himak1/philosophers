@@ -6,20 +6,12 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/18 13:12:43 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/18 15:44:12 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "philo.h"
-
-long	fact1k(long milli)
-{
-	long	micro;
-
-	micro = milli * 1000;
-	return (micro);
-}
 
 long	compare_time(struct timeval *time1, struct timeval *time2)
 {
@@ -28,25 +20,36 @@ long	compare_time(struct timeval *time1, struct timeval *time2)
 			(time1->tv_sec - time2->tv_sec) * 1000);
 }	
 
+int	isanyonedead(t_philo *philo_d)
+{
+	int	ret;
+
+	pthread_mutex_lock(&philo_d->shared->abort_lock);
+	if (philo_d->shared->abort == 0)
+		ret = 0;
+	else
+		ret = philo_d->shared->abort;
+	pthread_mutex_unlock(&philo_d->shared->abort_lock);
+	return (ret);
+}
+
 int	amidead(t_philo *philo_d)
 {
 	int	ret;
 
 	ret = 0;
-	pthread_mutex_lock(&philo_d->shared->abort_lock);
-	if (philo_d->shared->abort == 1)
-		ret = 1;
-	if (ret != 1 && compare_time(&philo_d->cur_time, &philo_d->lastmeal) \
+	if (compare_time(&philo_d->cur_time, &philo_d->lastmeal) \
 	> philo_d->shared->die)
 	{
+		pthread_mutex_lock(&philo_d->shared->abort_lock);
 		philo_d->shared->abort = 1;
+		pthread_mutex_unlock(&philo_d->shared->abort_lock);
 		ret = 1;
 	}
-	pthread_mutex_unlock(&philo_d->shared->abort_lock);
 	return (ret);
 }
 
-void	safesleep(t_philo *philo_d, long sleepquota)
+int	safesleep(t_philo *philo_d, long sleepquota)
 {
 	struct timeval	start;
 	struct timeval	current;
@@ -63,9 +66,10 @@ void	safesleep(t_philo *philo_d, long sleepquota)
 		time_passed = ((current.tv_usec - start.tv_usec) / 1000) + \
 						((current.tv_sec - start.tv_sec) * 1000);
 		if (time_passed >= sleepquota)
-			return ;
+			return (0);
 		sleepquota -= time_passed;
-		amidead(philo_d);
+		if (amidead(philo_d) == 1 || isanyonedead(philo_d) == 1)
+			return (1);
 	}
 }
 

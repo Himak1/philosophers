@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/18 12:40:00 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/18 15:44:43 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ pthread_mutex_t	*init_mutexes(int philos);
 int				run_threads(t_data *data);
 
 int				amidead(t_philo *philo_d);
-void			safesleep(t_philo *philo_d, long sleepquota);
+int				isanyonedead(t_philo *philo_d);
+
+int				safesleep(t_philo *philo_d, long sleepquota);
 long			get_thread_age(t_philo *philo);
 
-void			print_log(pthread_mutex_t *mic, long time, \
-					const char *message, int id);
+void			print_log(t_philo *philo_d, long time, const char *message);
 
 void			*philo_loop(void *data);
 

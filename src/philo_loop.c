@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/18 12:56:38 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/18 15:46:19 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,50 @@
 #include <stdio.h>
 #include "philo.h"
 
-void	print_log(pthread_mutex_t *mic, long time, \
-					const char *message, int id)
+void	print_log(t_philo *philo_d, long time, const char *message)
 {
-	pthread_mutex_lock(mic);
-	printf("%ld %d %s\n", time, id, message);
-	pthread_mutex_unlock(mic);
+	pthread_mutex_lock(&philo_d->shared->abort_lock);
+	if (philo_d->shared->abort == 2)
+	{
+		pthread_mutex_unlock(&philo_d->shared->abort_lock);
+		return ;
+	}
+	else if (philo_d->shared->abort == 1)
+		philo_d->shared->abort = 2;
+	pthread_mutex_lock(&philo_d->shared->mic);
+	printf("%ld %d %s\n", time, philo_d->id, message);
+	pthread_mutex_unlock(&philo_d->shared->mic);
+	pthread_mutex_unlock(&philo_d->shared->abort_lock);
 }
 
 static int	p_think(t_philo *philo_d)
 {
-	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-				"is thinking", philo_d->id);
+	print_log(philo_d, get_thread_age(philo_d), "is thinking");
 	return (1);
 }
 
 static int	p_eat(t_philo *philo_d)
 {
+	int	ret;
+
+	ret = 2;
 	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
-	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-				"grabbed a fork", philo_d->id);
+	print_log(philo_d, get_thread_age(philo_d), "grabbed a fork");
 	pthread_mutex_lock(philo_d->shared->forks + (philo_d->id + 1));
-	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-				"grabbed a fork", philo_d->id);
-	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-				"is eating", philo_d->id);
-	safesleep(philo_d, philo_d->shared->eat);
+	print_log(philo_d, get_thread_age(philo_d), "grabbed a fork");
+	print_log(philo_d, get_thread_age(philo_d), "is eating");
+	if (safesleep(philo_d, philo_d->shared->eat) == 1)
+		ret = 3;
 	pthread_mutex_unlock(philo_d->shared->forks + (philo_d->id + 1));
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
-	return (2);
+	return (ret);
 }
 
 static int	p_sleep(t_philo *philo_d)
 {
-	print_log(&philo_d->shared->mic, get_thread_age(philo_d), \
-			"is sleeping", philo_d->id);
-	safesleep(philo_d, philo_d->shared->sleep);
+	print_log(philo_d, get_thread_age(philo_d), "is sleeping");
+	if (safesleep(philo_d, philo_d->shared->sleep) == 1)
+		return (3);
 	return (0);
 }
 
@@ -70,8 +78,13 @@ void	*philo_loop(void *philo_data)
 			state = p_eat(philo_d);
 		else if (state == 2)
 			state = p_sleep(philo_d);
-		if (amidead(philo_d) == 1)
+		if (state == 3)
 			break ;
+		if (amidead(philo_d) == 1 || isanyonedead(philo_d) == 1)
+		{
+			print_log(philo_d, get_thread_age(philo_d), "died");
+			break ;
+		}
 	}
 	return (NULL);
 }
