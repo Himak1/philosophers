@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/21 12:24:54 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/21 15:58:51 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,53 +27,53 @@ static int	malloc_philos(pthread_t **threads, t_philo **philo_d, t_data *data)
 	return (0);
 }
 
-static pthread_t	*handle_thread_error(pthread_t *threads, t_philo *philo)
+static int	handle_thread_error(pthread_t *threads, t_philo *philo)
 {
 	free(threads);
 	free(philo);
 	write(STDERR_FILENO, "Error while creating threads\n", 29);
-	return (NULL);
+	return (-1);
 }
 
-pthread_t	*init_philosophers(t_data *data)
+int	init_philosophers(pthread_t **threads, \
+							t_philo **philo_d, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (malloc_philos(threads, philo_d, data) == -1)
+		return (-1);
+	while (i < data->num_philos)
+	{
+		(*philo_d)[i].id = i + 1;
+		(*philo_d)[i].shared = data;
+		if (pthread_create(*threads + i, NULL, philo_loop, *philo_d + i) == -1)
+			return (handle_thread_error(*threads, *philo_d));
+		usleep(10);
+		i++;
+	}
+	return (0);
+}
+
+int	run_threads(t_data *data)
 {
 	pthread_t	*threads;
 	t_philo		*philo_d;
 	int			i;
 
 	i = 0;
-	if (malloc_philos(&threads, &philo_d, data) == -1)
-		return (NULL);
-	while (i < data->num_philos)
-	{
-		philo_d[i].id = i + 1;
-		philo_d[i].shared = data;
-		if (pthread_create(threads + i, NULL, philo_loop, philo_d + i) == -1)
-			return (handle_thread_error(threads, philo_d));
-		usleep(10);
-		i++;
-	}
-	return (threads);
-}
-
-int	run_threads(t_data *data)
-{
-	pthread_t	*threads;
-	int			i;
-
-	i = 1;
 	if (pthread_mutex_init(&data->abort_lock, NULL) \
 		|| pthread_mutex_init(&data->mic, NULL))
 		return (-1);
-	threads = init_philosophers(data);
-	if (!threads)
+	if (init_philosophers(&threads, &philo_d, data) == -1)
 		return (-1);
 	while (i < data->num_philos)
 	{
-		pthread_detach(threads[i]);
+		pthread_join(threads[i], NULL);
 		i++;
 	}
-	pthread_join(threads[0], NULL);
+	free(threads);
+	free(philo_d);
 	return (0);
 }
 

@@ -3,6 +3,8 @@ Tasks:
 
     ☐ "./philo 3 10 5 3" causes multiple death messages
 
+    ☐ free the threads 
+
     1. number of philosophers
     2. time to die
     3. time to eat

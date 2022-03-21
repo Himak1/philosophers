@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/21 12:23:09 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/21 13:00:33 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,21 @@ static int	p_think(t_philo *philo_d)
 static int	p_eat(t_philo *philo_d)
 {
 	int	ret;
+	int	right_fork;
 
 	ret = 2;
+	if (philo_d->id == philo_d->shared->num_philos)
+		right_fork = 0;
+	else
+		right_fork = philo_d->id + 1;
 	pthread_mutex_lock(philo_d->shared->forks + philo_d->id);
 	print_log(philo_d, get_thread_age(philo_d), "grabbed a fork");
-	pthread_mutex_lock(philo_d->shared->forks + (philo_d->id + 1));
+	pthread_mutex_lock(philo_d->shared->forks + right_fork);
 	print_log(philo_d, get_thread_age(philo_d), "grabbed a fork");
 	print_log(philo_d, get_thread_age(philo_d), "is eating");
 	if (safesleep(philo_d, philo_d->shared->eat) == 1)
 		ret = 3;
-	pthread_mutex_unlock(philo_d->shared->forks + (philo_d->id + 1));
+	pthread_mutex_unlock(philo_d->shared->forks + right_fork);
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
 	return (ret);
 }
