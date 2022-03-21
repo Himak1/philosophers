@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/21 13:00:33 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/21 16:24:09 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	print_log(t_philo *philo_d, long time, const char *message)
 	pthread_mutex_lock(&philo_d->shared->mic);
 	if (philo_d->shared->abort == 2)
 	{
+		printf("| %d |", philo_d->shared->abort);
 		pthread_mutex_unlock(&philo_d->shared->abort_lock);
 		pthread_mutex_unlock(&philo_d->shared->mic);
 		return ;
