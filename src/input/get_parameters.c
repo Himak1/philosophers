@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 21:46:30 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/14 15:50:38 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/21 12:24:33 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	get_parameters(t_data *data, int argc, char *argv[])
 			return (-1);
 		if (arg_inrange(data, argc))
 			return (-1);
+		data->abort = 0;
 		return (0);
 	}
 	return (-1);
