@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/21 16:24:09 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/22 17:06:28 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,33 @@
 #include <stdio.h>
 #include "philo.h"
 
-void	print_log(t_philo *philo_d, long time, const char *message)
+int	print_log(t_philo *philo_d, long time, const char *message)
 {
+	int	ret;
+
+	ret = 0;
 	pthread_mutex_lock(&philo_d->shared->abort_lock);
-	pthread_mutex_lock(&philo_d->shared->mic);
 	if (philo_d->shared->abort == 2)
 	{
-		printf("| %d |", philo_d->shared->abort);
+		ret = philo_d->shared->abort;
 		pthread_mutex_unlock(&philo_d->shared->abort_lock);
-		pthread_mutex_unlock(&philo_d->shared->mic);
-		return ;
+		return (ret);
 	}
 	else if (philo_d->shared->abort == 1)
+	{
+		printf("yeeeeet %d\n", philo_d->id);
 		philo_d->shared->abort = 2;
+		ret = philo_d->shared->abort;
+	}
 	printf("%ld %d %s\n", time, philo_d->id, message);
-	pthread_mutex_unlock(&philo_d->shared->mic);
 	pthread_mutex_unlock(&philo_d->shared->abort_lock);
+	return (ret);
 }
 
 static int	p_think(t_philo *philo_d)
 {
-	print_log(philo_d, get_thread_age(philo_d), "is thinking");
+	if (print_log(philo_d, get_thread_age(philo_d), "is thinking") == -1)
+		return (CASUALTIES);
 	return (1);
 }
 
@@ -62,9 +68,12 @@ static int	p_eat(t_philo *philo_d)
 
 static int	p_sleep(t_philo *philo_d)
 {
-	print_log(philo_d, get_thread_age(philo_d), "is sleeping");
-	if (safesleep(philo_d, philo_d->shared->sleep) == 1)
-		return (3);
+	int	ret;
+
+	ret = print_log(philo_d, get_thread_age(philo_d), "is sleeping");
+	ret = safesleep(philo_d, philo_d->shared->sleep);
+	if (ret)
+		return (ret);
 	return (0);
 }
 
@@ -76,18 +85,19 @@ void	*philo_loop(void *philo_data)
 	philo_d = (t_philo *)philo_data;
 	gettimeofday(&philo_d->start, NULL);
 	gettimeofday(&philo_d->lastmeal, NULL);
-	state = 0;
+	state = THINK;
 	while (1)
 	{
-		if (state == 0)
+		if (state == THINK)
 			state = p_think(philo_d);
-		else if (state == 1)
+		else if (state == EAT)
 			state = p_eat(philo_d);
-		else if (state == 2)
+		else if (state == SLEEP)
 			state = p_sleep(philo_d);
-		if (state == 3)
+		if (state == CASUALTIES)
 			break ;
-		if (amidead(philo_d) == 1 || isanyonedead(philo_d) == 1)
+		else if (state == STARVED \
+				|| amidead(philo_d) || isanyonedead(philo_d) == 1)
 		{
 			print_log(philo_d, get_thread_age(philo_d), "died");
 			break ;

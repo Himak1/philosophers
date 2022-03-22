@@ -6,14 +6,13 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/21 11:59:37 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/22 14:41:45 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "philo.h"
 
-#include <stdio.h>
 long	compare_time(struct timeval *time1, struct timeval *time2)
 {
 	gettimeofday(time1, NULL);

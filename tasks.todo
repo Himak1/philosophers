@@ -2,8 +2,12 @@ Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
     ☐ "./philo 3 10 5 3" causes multiple death messages
-
-    ☐ free the threads 
+        ☐ functions checking abort status should return abort status
+            ☐ print_log
+            ☐ p_think
+            ☐ p_sleep
+            ☐ p_eat
+            ☐ safe_sleep
 
     1. number of philosophers
     2. time to die
@@ -12,9 +16,66 @@ Tasks:
     5. number of times each philosopher must eat
 
 
+    i:0 abort:0 0 1 is thinking
+    i:0 abort:0 0 1 grabbed a fork
+    i:0 abort:0 0 1 grabbed a fork
+    i:0 abort:0 0 1 is eating
+    i:0 abort:0 0 2 is thinking
+    i:0 abort:0 0 3 is thinking
+    i:0 abort:0 0 3 grabbed a fork
+    i:0 abort:0 0 3 grabbed a fork
+    i:0 abort:0 0 3 is eating
+    i:0 abort:0 5 1 is sleeping
+    i:0 abort:0 4 2 grabbed a fork
+    i:0 abort:0 5 3 is sleeping
+    i:0 abort:0 5 2 grabbed a fork
+    i:0 abort:0 5 2 is eating
+    i:0 abort:0 8 1 is thinking
+    i:0 abort:0 8 1 grabbed a fork
+    i:0 abort:0 8 3 is thinking
+    i:0 abort:0 11 1 grabbed a fork
+    i:0 abort:0 11 1 is eating
+    i:0 abort:1 yeeeeet 2
+    11 2 died
+    i:0 abort:2 | id:3 2 |i:0 abort:2 | id:3 2 |i:0 abort:2 | id:3 2 |i:0 abort:1 yeeeeet 1
+    16 1 died
+    i:0 abort:1 yeeeeet 3
+    16 3 died
 
 
 
+
+
+
+
+
+
+    [root@f1d2f3c65143 build]# ./philo 3 10 5 3
+    i:0 abort:0 0 1 is thinking
+    i:0 abort:0 0 1 grabbed a fork
+    i:0 abort:0 0 1 grabbed a fork
+    i:0 abort:0 0 1 is eating
+    i:0 abort:0 0 2 is thinking
+    i:0 abort:0 0 3 is thinking
+    i:0 abort:0 0 3 grabbed a fork
+    i:0 abort:0 0 3 grabbed a fork
+    i:0 abort:0 0 3 is eating
+    i:0 abort:0 5 1 is sleeping
+    i:0 abort:0 5 2 grabbed a fork
+    i:0 abort:0 5 3 is sleeping
+    i:0 abort:0 5 2 grabbed a fork
+    i:0 abort:0 5 2 is eating
+    i:0 abort:0 8 1 is thinking
+    i:0 abort:0 8 1 grabbed a fork
+    i:0 abort:0 8 3 is thinking
+    i:0 abort:0 11 1 grabbed a fork
+    i:0 abort:0 11 1 is eating
+    i:0 abort:1 yeeeeet 2
+    11 2 died
+    i:0 abort:2 | 2 |i:0 abort:2 | 2 |i:0 abort:2 | 2 |i:0 abort:1 yeeeeet 1 // wtf is this?
+    16 1 died
+    i:0 abort:1 yeeeeet 3
+    16 3 died
 
 
 

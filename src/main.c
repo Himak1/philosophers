@@ -6,7 +6,7 @@
 /*   By: zaiba <zaiba@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 15:08:17 by zaiba         #+#    #+#                 */
-/*   Updated: 2022/03/16 11:35:02 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/22 16:17:35 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char *argv[])
 		free(data.forks);
 		return (-1);
 	}
+	cleanup_mutexes(&data);
 	free(data.forks);
 	return (0);
 }
