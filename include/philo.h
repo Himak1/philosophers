@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/22 16:26:36 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/23 12:31:19 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				isanyonedead(t_philo *philo_d);
 int				safesleep(t_philo *philo_d, long sleepquota);
 long			get_thread_age(t_philo *philo);
 
-int				print_log(t_philo *philo_d, long time, const char *message);
+int				print_log(t_philo *philo_d, const char *message);
 
 void			*philo_loop(void *data);
 
