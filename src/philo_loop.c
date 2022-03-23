@@ -33,7 +33,7 @@ static int	p_eat(t_philo *philo_d)
 
 static int	p_sleep(t_philo *philo_d)
 {
-
+	
 }
 
 void	*philo_loop(void *philo_data)
@@ -46,6 +46,8 @@ void	*philo_loop(void *philo_data)
 	while (1)
 	{
 		if (state == THINK)
+			state = p_think(philo_d);
+		else if (statew)
 	}
 	return (NULL);
 }
