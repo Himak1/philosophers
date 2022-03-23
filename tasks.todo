@@ -3,7 +3,6 @@ Tasks:
 
     ☐ "./philo 3 10 5 3" causes multiple death messages
         ☐ functions checking abort status should return abort status
-            ☐ abort_status should be a negative value to not allow confusion with philo states
             ✔ print_log @done(22-03-23 11:05)
             ☐ p_think
             ☐ p_sleep

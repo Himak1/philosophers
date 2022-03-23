@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/22 16:17:39 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/23 13:18:50 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	init_philosophers(pthread_t **threads, \
 		(*philo_d)[i].shared = data;
 		if (pthread_create(*threads + i, NULL, philo_loop, *philo_d + i) == -1)
 			return (handle_thread_error(*threads, *philo_d));
-		usleep(40);
+		usleep(10);
 		i++;
 	}
 	return (0);

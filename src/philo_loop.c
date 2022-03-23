@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/23 12:39:47 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/23 14:49:01 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ int	print_log(t_philo *philo_d, const char *message)
 
 	ret = 0;
 	pthread_mutex_lock(&philo_d->shared->abort_lock);
-	if (philo_d->shared->abort == 2)
+	if (philo_d->shared->abort == CASUALTIES)
 	{
 		ret = philo_d->shared->abort;
 		pthread_mutex_unlock(&philo_d->shared->abort_lock);
 		return (ret);
 	}
-	else if (philo_d->shared->abort == 1)
+	else if (philo_d->shared->abort == STARVED)
 	{
-		printf("yeeeeet %d\n", philo_d->id);
-		philo_d->shared->abort = 2;
+		printf("yeeeeet %d\n", philo_d->shared->abort);
+		philo_d->shared->abort = CASUALTIES;
 		ret = philo_d->shared->abort;
 	}
 	printf("%ld %d %s\n", get_thread_age(philo_d), philo_d->id, message);
@@ -43,6 +43,8 @@ int	print_log(t_philo *philo_d, const char *message)
 
 static int	p_think(t_philo *philo_d)
 {
+	if (amidead(philo_d) == 1)
+		return (STARVED);
 	if (print_log(philo_d, "is thinking") == 2)
 		return (CASUALTIES);
 	return (EAT);
@@ -63,8 +65,7 @@ static int	p_eat(t_philo *philo_d)
 	pthread_mutex_lock(philo_d->shared->forks + right_fork);
 	print_log(philo_d, "grabbed a fork");
 	print_log(philo_d, "is eating");
-	if (safesleep(philo_d, philo_d->shared->eat) == 1)
-		ret = 3;
+	ret = safesleep(philo_d, philo_d->shared->eat);
 	pthread_mutex_unlock(philo_d->shared->forks + right_fork);
 	pthread_mutex_unlock(philo_d->shared->forks + philo_d->id);
 	return (ret);
@@ -74,7 +75,8 @@ static int	p_sleep(t_philo *philo_d)
 {
 	int	ret;
 
-	ret = print_log(philo_d, "is sleeping");
+	if (print_log(philo_d, "is sleeping"))
+		return (2);
 	ret = safesleep(philo_d, philo_d->shared->sleep);
 	if (ret)
 		return (ret);
