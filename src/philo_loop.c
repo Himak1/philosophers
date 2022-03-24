@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/23 15:58:12 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/24 16:57:19 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 
 static int	p_think(t_philo *philo_d)
 {
-
+	if (amidead(philo_d))
+		return (STARVED);
+	else
+		return (EAT);
 }
 
 static int	p_eat(t_philo *philo_d)
@@ -28,12 +31,26 @@ static int	p_eat(t_philo *philo_d)
 	if (philo_d->id == philo_d->shared->num_philos)
 		right_fork = 0;
 	else
-		right_fork = philo_d->id + 1;
+		right_fork = philo_d->id;
+	pthread_mutex_lock(&philo_d->shared->forks[philo_d->id - 1]);
+	ret = print_log(philo_d, "grabbed a fork");
+	pthread_mutex_lock(&philo_d->shared->forks[right_fork]);
+	ret = print_log(philo_d, "grabbed a fork");
+	ret = print_log(philo_d, "is eating");
+	if (ret != CASUALTIES)
+		ret = safesleep(philo_d, philo_d->shared->eat);
+	pthread_mutex_unlock(&philo_d->shared->forks[right_fork]);
+	pthread_mutex_unlock(&philo_d->shared->forks[philo_d->id -1]);
+	return (ret);
 }
 
 static int	p_sleep(t_philo *philo_d)
 {
-	
+	int	ret;
+
+	print_log(philo_d, "is sleeping");
+	ret = safesleep(philo_d, philo_d->shared->sleep);
+	return (ret);
 }
 
 void	*philo_loop(void *philo_data)
@@ -47,7 +64,14 @@ void	*philo_loop(void *philo_data)
 	{
 		if (state == THINK)
 			state = p_think(philo_d);
-		else if (statew)
+		else if (state == EAT)
+			state = p_eat(philo_d);
+		else if (state == SLEEP)
+			state = p_sleep(philo_d);
+		else if (state == STARVED)
+			state = print_death(philo_d);
+		else if (state == CASUALTIES)
+			break ;
 	}
 	return (NULL);
 }

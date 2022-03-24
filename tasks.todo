@@ -4,9 +4,10 @@ Tasks:
     ☐ "./philo 3 10 5 3" causes multiple death messages
         ☐ functions checking abort status should return abort status
             ✔ print_log @done(22-03-23 11:05)
-            ☐ p_think
+            ✔ philo_d->id = array + 1? @done(22-03-24 15:05)
+            ✔ p_think @done(22-03-24 15:05)
             ☐ p_sleep
-            ☐ p_eat
+            ✔ p_eat @done(22-03-24 15:06)
             ☐ safe_sleep
 
     1. number of philosophers

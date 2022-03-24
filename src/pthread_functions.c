@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/23 15:52:31 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/24 16:46:12 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	handle_thread_error(pthread_t *threads, t_philo *philo)
 int	init_philosophers(pthread_t **threads, \
 					t_philo **philo_d, t_data *data)
 {
-	int	i;
+	int				i;
 	struct timeval	time;
 
 	i = 0;
