@@ -1,7 +1,7 @@
 Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
-    ☐ ./philo 4 10 5 3 causes 2 death messages
+    ☐ handle death message priority with triple mutex setup
 
     1. number of philosophers
     2. time to die
