@@ -1,14 +1,7 @@
 Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
-    ☐ "./philo 3 10 5 3" causes multiple death messages
-        ☐ functions checking abort status should return abort status
-            ✔ print_log @done(22-03-23 11:05)
-            ✔ philo_d->id = array + 1? @done(22-03-24 15:05)
-            ✔ p_think @done(22-03-24 15:05)
-            ☐ p_sleep
-            ✔ p_eat @done(22-03-24 15:06)
-            ☐ safe_sleep
+    ☐ ./philo 4 10 5 3 causes 2 death messages
 
     1. number of philosophers
     2. time to die

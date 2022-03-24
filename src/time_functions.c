@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/23 14:48:09 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/24 17:08:22 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	amidead(t_philo *philo_d)
 	> philo_d->shared->die)
 	{
 		pthread_mutex_lock(&philo_d->shared->abort_lock);
-		philo_d->shared->abort = STARVED;
+		if (philo_d->shared->abort != CASUALTIES)
+			philo_d->shared->abort = STARVED;
 		pthread_mutex_unlock(&philo_d->shared->abort_lock);
 		ret = 1;
 	}
