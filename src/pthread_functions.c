@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 12:51:09 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 18:03:32 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	init_philosophers(pthread_t *threads, \
 		philo_d[i].lastmeal.tv_usec = time.tv_usec;
 		if (pthread_create(threads + i, NULL, philo_loop, philo_d + i) == -1)
 			return (handle_thread_error(threads, philo_d));
-		usleep(5); // meant to create a slight delay when creating threads
 		i++;
 	}
 	return (0);

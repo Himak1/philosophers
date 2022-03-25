@@ -2,6 +2,9 @@ Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
     ☐ handle death message priority with triple mutex setup
+        ☐ reduce number of mutex_locks
+            - maybe use a double mutex instead of triple.
+        ☐ create the left and right fork grab order in p_eat()
 
     ☐ handle_thread_error() doesn't destroy the mutexes
 

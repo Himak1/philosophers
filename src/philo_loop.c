@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 12:30:57 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 18:06:54 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,24 @@ static int	p_think(t_philo *philo_d)
 static int	p_eat(t_philo *philo_d)
 {
 	int	ret;
-	int	right_fork;
+	int	fork_1;
+	int	fork_2;
 
 	ret = 2;
-	if (philo_d->id == philo_d->shared->num_philos)
-		right_fork = 0;
-	else
-		right_fork = philo_d->id;
-	pthread_mutex_lock(&philo_d->shared->forks[philo_d->id - 1]);
-	ret = print_log(philo_d, "grabbed a fork");
-	pthread_mutex_lock(&philo_d->shared->forks[right_fork]);
-	ret = print_log(philo_d, "grabbed a fork");
+	if (philo_d->id % 2 == 0)
+		fork_1 = 
+	/*
+		choose which fork is grabbed depending on 
+	*/
+	pthread_mutex_lock(&philo_d->shared->forks[fork_1]);
+	print_log(philo_d, "grabbed a fork");
+	pthread_mutex_lock(&philo_d->shared->forks[fork_2]);
+	print_log(philo_d, "grabbed a fork");
 	ret = print_log(philo_d, "is eating");
 	if (ret != CASUALTIES)
 		ret = safesleep(philo_d, philo_d->shared->eat);
-	pthread_mutex_unlock(&philo_d->shared->forks[right_fork]);
-	pthread_mutex_unlock(&philo_d->shared->forks[philo_d->id -1]);
+	pthread_mutex_unlock(&philo_d->shared->forks[fork_1]);
+	pthread_mutex_unlock(&philo_d->shared->forks[fork_2]);
 	return (ret);
 }
 
