@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/22 16:05:52 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 13:02:51 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:26:18 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,41 @@ void	cleanup_mutexes(t_data *data)
 		pthread_mutex_destroy(data->forks + i);
 		i++;
 	}
-	pthread_mutex_destroy(&data->abort_m);
+	pthread_mutex_destroy(data->lhm_gates + 0);
+	pthread_mutex_destroy(data->lhm_gates + 1);
+	pthread_mutex_destroy(data->lhm_gates + 2);
+	free(data->forks);
+	free(data->lhm_gates);
 }
 
-static void	mutex_init_error_cleanup(t_data *data, int i)
+static void	mutex_init_error_cleanup(pthread_mutex_t *mutex_array, int i)
 {
 	while (i > -1)
 	{
-		pthread_mutex_destroy(data->forks + i);
+		pthread_mutex_destroy(mutex_array + i);
 		i--;
 	}
-	free(data->forks);
+	free(mutex_array);
+}
+
+static pthread_mutex_t	*init_n_mutexes(int n)
+{
+	pthread_mutex_t	*mutex_array;
+	int				i;
+
+	i = 0;
+	mutex_array = malloc(n * sizeof(pthread_mutex_t));
+	if (!mutex_array)
+		return (NULL);
+	while (i < n)
+	{
+		if (pthread_mutex_init(mutex_array + i, NULL))
+		{
+			mutex_init_error_cleanup(mutex_array, i - 1);
+			return (NULL);
+		}
+		i++;
+	}
 }
 
 int	init_mutexes(t_data *data)
@@ -41,49 +65,23 @@ int	init_mutexes(t_data *data)
 	int	i;
 
 	i = 0;
-	if (pthread_mutex_init(&data->lowp_m, NULL) || \
-		pthread_mutex_init(&data->highp_m, NULL) || \
-		pthread_mutex_init(&data->abort_m, NULL))
-		return (-1);
-	data->forks = malloc(data->num_philos * sizeof(pthread_mutex_t));
-	if (data->forks)
+	if (data->forks && data->lhm_gates)
 	{
-		while (i < data->num_philos)
+		data->lhm_gates = init_n_mutexes(3);
+		if (!data->lhm_gates)
+			return (-1);
+		data->forks = init_n_mutexes(data->num_philos);
+		if (!data->forks)
 		{
-			if (pthread_mutex_init((data->forks + i), NULL) == -1)
-			{
-				mutex_init_error_cleanup(data, i - 1);
-				return (-1);
-			}
-			i++;
+			mutex_init_error_cleanup(data->num_philos);
+			return (-1);
 		}
 	}
 	else
+	{
+		free(data->forks);
+		free(data->lhm_gates);
 		return (-1);
+	}
 	return (0);
 }
-
-/*
-pthread_mutex_t	*init_mutexes(int philos)
-{
-	pthread_mutex_t	*forks;
-	int				i;
-
-	i = 0;
-	philos += 1;
-	forks = malloc(philos * sizeof(pthread_mutex_t));
-	if (forks)
-	{
-		while (i < philos)
-		{
-			if (pthread_mutex_init((forks + i), NULL) == -1)
-			{
-				free(forks);
-				return (NULL);
-			}
-			i++;
-		}
-	}
-	return (forks);
-}
-*/

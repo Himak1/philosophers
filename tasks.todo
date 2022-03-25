@@ -2,11 +2,8 @@ Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
     ☐ handle death message priority with triple mutex setup
-        ☐ init gate mutexes in main
-        ☐ destroy gate mutexes
 
-        ☐ handle_thread_error() doesn't destroy the mutexes
-        ☐ init_mutexes how to destroy mutexes in case of error?
+    ☐ handle_thread_error() doesn't destroy the mutexes
 
     1. number of philosophers
     2. time to die
