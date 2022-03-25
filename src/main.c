@@ -6,7 +6,7 @@
 /*   By: zaiba <zaiba@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 15:08:17 by zaiba         #+#    #+#                 */
-/*   Updated: 2022/03/22 16:17:35 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 12:50:20 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ int	main(int argc, char *argv[])
 
 	if (get_parameters(&data, argc, argv) == -1)
 		return (too_few_args());
-	data.forks = init_mutexes(data.num_philos);
-	if (!data.forks)
-		return (1);
+	if (init_mutexes(&data) == -1)
+		return (-1);
 	if (run_threads(&data) == -1)
 	{
 		free(data.forks);

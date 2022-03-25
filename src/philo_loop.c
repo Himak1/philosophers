@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/24 16:57:19 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 12:30:57 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,3 @@ void	*philo_loop(void *philo_data)
 	}
 	return (NULL);
 }
-
-/*
-		else if (state == STARVED \
-				|| amidead(philo_d) || isanyonedead(philo_d) == 1)
-		{
-			print_log(philo_d, get_thread_age(philo_d), "died");
-			break ;
-		}
-*/

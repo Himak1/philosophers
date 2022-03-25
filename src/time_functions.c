@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/24 17:08:22 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 12:19:31 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	isanyonedead(t_philo *philo_d)
 {
 	int	ret;
 
-	pthread_mutex_lock(&philo_d->shared->abort_lock);
+	pthread_mutex_lock(&philo_d->shared->abort_m);
 	ret = philo_d->shared->abort;
-	pthread_mutex_unlock(&philo_d->shared->abort_lock);
+	pthread_mutex_unlock(&philo_d->shared->abort_m);
 	return (ret);
 }
 
