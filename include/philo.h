@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 13:11:22 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:35:21 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int				isanyonedead(t_philo *philo_d);
 int				safesleep(t_philo *philo_d, long sleepquota);
 long			get_thread_age(t_philo *philo);
 
-void			low_priority_access(t_data *data);
+void			low_priority_gate(t_data *data);
 void			low_priority_exit(t_data *data);
 void			high_priority_gate(t_data *data);
 void			high_priority_exit(t_data *data);

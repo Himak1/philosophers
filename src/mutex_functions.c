@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/22 16:05:52 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 13:26:18 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:42:31 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,18 @@ static pthread_mutex_t	*init_n_mutexes(int n)
 		}
 		i++;
 	}
+	return (mutex_array);
 }
 
 int	init_mutexes(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	if (data->forks && data->lhm_gates)
+	data->lhm_gates = init_n_mutexes(3);
+	if (!data->lhm_gates)
+		return (-1);
+	data->forks = init_n_mutexes(data->num_philos);
+	if (!data->forks)
 	{
-		data->lhm_gates = init_n_mutexes(3);
-		if (!data->lhm_gates)
-			return (-1);
-		data->forks = init_n_mutexes(data->num_philos);
-		if (!data->forks)
-		{
-			mutex_init_error_cleanup(data->num_philos);
-			return (-1);
-		}
-	}
-	else
-	{
-		free(data->forks);
-		free(data->lhm_gates);
+		mutex_init_error_cleanup(data->lhm_gates, data->num_philos);
 		return (-1);
 	}
 	return (0);

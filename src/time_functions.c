@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/10 15:39:55 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 12:19:31 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/25 13:40:08 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	isanyonedead(t_philo *philo_d)
 {
 	int	ret;
 
-	pthread_mutex_lock(&philo_d->shared->abort_m);
+	low_priority_gate(philo_d->shared);
 	ret = philo_d->shared->abort;
-	pthread_mutex_unlock(&philo_d->shared->abort_m);
+	low_priority_exit(philo_d->shared);
 	return (ret);
 }
 
@@ -38,10 +38,10 @@ int	amidead(t_philo *philo_d)
 	if (compare_time(&philo_d->cur_time, &philo_d->lastmeal) \
 	> philo_d->shared->die)
 	{
-		pthread_mutex_lock(&philo_d->shared->abort_lock);
+		low_priority_gate(philo_d->shared);
 		if (philo_d->shared->abort != CASUALTIES)
 			philo_d->shared->abort = STARVED;
-		pthread_mutex_unlock(&philo_d->shared->abort_lock);
+		low_priority_exit(philo_d->shared);
 		ret = 1;
 	}
 	return (ret);
