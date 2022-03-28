@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/28 16:45:40 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/28 17:34:29 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	choose_forks(t_philo *philo_d, int *fork_1, int *fork_2)
 	}
 }
 
-static int	p_eat(t_philo *philo_d)
+static int	p_eat(t_philo *philo_d, int *times_ate)
 {
 	int	ret;
 	int	fork_1;
@@ -58,6 +58,8 @@ static int	p_eat(t_philo *philo_d)
 	pthread_mutex_lock(&philo_d->shared->forks[fork_2]);
 	print_log(philo_d, "grabbed a fork");
 	ret = print_log(philo_d, "is eating");
+	if (philo_d->shared->num_eat != -1)
+		*times_ate += 1;
 	gettimeofday(&philo_d->lastmeal, NULL);
 	if (ret != CASUALTIES)
 		ret = safesleep(philo_d, philo_d->shared->eat);
@@ -80,16 +82,18 @@ static int	p_sleep(t_philo *philo_d)
 void	*philo_loop(void *philo_data)
 {
 	t_philo	*philo_d;
+	int		times_ate;
 	int		state;
 
+	times_ate = 0;
 	philo_d = (t_philo *)philo_data;
 	state = THINK;
-	while (1)
+	while (times_ate < philo_d->shared->num_eat)
 	{
 		if (state == THINK)
 			state = p_think(philo_d);
 		else if (state == EAT)
-			state = p_eat(philo_d);
+			state = p_eat(philo_d, &times_ate);
 		else if (state == SLEEP)
 			state = p_sleep(philo_d);
 		else if (state == STARVED)
