@@ -5,9 +5,6 @@ Tasks:
         ☐ reduce number of mutex_locks
             ☐ use a double mutex instead of triple.
 
-    ☐ THINK state is not reenterd
-
-
 
     ☐ handle_thread_error() doesn't destroy the mutexes
 

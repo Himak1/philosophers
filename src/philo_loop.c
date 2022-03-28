@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/28 15:47:34 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/28 16:45:40 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	p_eat(t_philo *philo_d)
 	pthread_mutex_lock(&philo_d->shared->forks[fork_2]);
 	print_log(philo_d, "grabbed a fork");
 	ret = print_log(philo_d, "is eating");
+	gettimeofday(&philo_d->lastmeal, NULL);
 	if (ret != CASUALTIES)
 		ret = safesleep(philo_d, philo_d->shared->eat);
 	pthread_mutex_unlock(&philo_d->shared->forks[fork_1]);
