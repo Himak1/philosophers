@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 21:46:30 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/28 17:35:15 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/29 12:15:27 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	overflow_error(t_data *data, int argc, char *argv[])
 	if (argc == 6)
 		status += ft_sfatoi(argv[5], &data->num_eat);
 	else
-		data->num_eat = ;
+		data->num_eat = -1;
 	if (status)
 	{
 		write(STDERR_FILENO, "arguments must be within integer limits\n", 40);

@@ -6,11 +6,12 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 18:03:32 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/29 12:23:09 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include "philo.h"
 
@@ -25,6 +26,7 @@ static int	malloc_philosophers(pthread_t **threads, \
 		free(*philo_d);
 		return (-1);
 	}
+	memset(*philo_d, 0, data->num_philos * sizeof(t_philo));
 	return (0);
 }
 
@@ -47,6 +49,8 @@ int	init_philosophers(pthread_t *threads, \
 	while (i < data->num_philos)
 	{
 		philo_d[i].id = i + 1;
+		if (data->num_eat == -1)
+			philo_d[i].times_ate = -2;
 		philo_d[i].shared = data;
 		philo_d[i].start.tv_sec = time.tv_sec;
 		philo_d[i].start.tv_usec = time.tv_usec;

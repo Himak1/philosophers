@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 18:21:05 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 18:05:51 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/29 12:09:43 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				id;
+	int				times_ate;
 	struct timeval	cur_time;
 	struct timeval	start;
 	struct timeval	lastmeal;

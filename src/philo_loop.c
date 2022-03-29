@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 12:03:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/28 17:34:29 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/29 12:09:50 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,16 @@ static int	p_sleep(t_philo *philo_d)
 void	*philo_loop(void *philo_data)
 {
 	t_philo	*philo_d;
-	int		times_ate;
 	int		state;
 
-	times_ate = 0;
 	philo_d = (t_philo *)philo_data;
 	state = THINK;
-	while (times_ate < philo_d->shared->num_eat)
+	while (philo_d->times_ate < philo_d->shared->num_eat)
 	{
 		if (state == THINK)
 			state = p_think(philo_d);
 		else if (state == EAT)
-			state = p_eat(philo_d, &times_ate);
+			state = p_eat(philo_d, &philo_d->times_ate);
 		else if (state == SLEEP)
 			state = p_sleep(philo_d);
 		else if (state == STARVED)
