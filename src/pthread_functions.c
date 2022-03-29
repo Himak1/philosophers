@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/29 12:23:09 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/29 15:13:45 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,17 @@ static int	malloc_philosophers(pthread_t **threads, \
 	return (0);
 }
 
-static int	handle_thread_error(pthread_t *threads, t_philo *philo)
+static int	handle_thread_error(pthread_t *threads, t_philo *philo, int i)
 {
-	free(threads);
-	free(philo);
-	write(STDERR_FILENO, "Error while creating threads\n", 29);
+	high_priority_gate(philo->shared);
+	philo->shared->abort = CASUALTIES;
+	high_priority_exit(philo->shared);
+	while (i > -1)
+	{
+		pthread_join(threads[i], NULL);
+		i--;
+	}
+	write(STDERR_FILENO, "error while creating threads\n", 29);
 	return (-1);
 }
 
@@ -57,7 +63,7 @@ int	init_philosophers(pthread_t *threads, \
 		philo_d[i].lastmeal.tv_sec = time.tv_sec;
 		philo_d[i].lastmeal.tv_usec = time.tv_usec;
 		if (pthread_create(threads + i, NULL, philo_loop, philo_d + i) == -1)
-			return (handle_thread_error(threads, philo_d));
+			return (handle_thread_error(threads, philo_d, i - 1));
 		i++;
 	}
 	return (0);
@@ -73,7 +79,11 @@ int	run_threads(t_data *data)
 	if (malloc_philosophers(&threads, &philo_d, data) == -1)
 		return (-1);
 	if (init_philosophers(threads, philo_d, data) == -1)
+	{
+		free(threads);
+		free(philo_d);
 		return (-1);
+	}
 	while (i < data->num_philos)
 	{
 		pthread_join(threads[i], NULL);
