@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 21:46:30 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/29 12:15:27 by jhille        ########   odam.nl         */
+/*   Updated: 2022/03/29 13:07:30 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ int	get_parameters(t_data *data, int argc, char *argv[])
 		data->abort = 0;
 		return (0);
 	}
+	else
+		write(STDERR_FILENO, "wrong number of arguments\n", 26);
 	return (-1);
 }
