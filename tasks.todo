@@ -1,7 +1,6 @@
 Tasks:
     ☐ move all files into a /philo directory. No subdirectories such as src and include
 
-    ✔ implement handle_thread_error() function. @done(22-03-29 15:15)
 
     1. number of philosophers
     2. time to die
