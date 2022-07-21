@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/23 15:54:07 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/28 16:38:10 by jhille        ########   odam.nl         */
+/*   Updated: 2022/04/20 17:55:29 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,4 @@ int	print_log(t_philo *philo_d, const char *message)
 		ret = CASUALTIES;
 	low_priority_exit(philo_d->shared);
 	return (ret);
-}
-
-int	print_death(t_philo *philo_d)
-{
-	high_priority_gate(philo_d->shared);
-	if (philo_d->shared->abort != CASUALTIES)
-	{
-		printf("%ld %d died\n", get_thread_age(philo_d), philo_d->id);
-		philo_d->shared->abort = CASUALTIES;
-	}
-	high_priority_exit(philo_d->shared);
-	return (CASUALTIES);
 }

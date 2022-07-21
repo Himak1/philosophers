@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/31 16:08:50 by jhille        #+#    #+#                 */
-/*   Updated: 2022/04/07 14:58:55 by jhille        ########   odam.nl         */
+/*   Updated: 2022/04/13 13:00:19 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	single_fork(t_philo *philo_d)
 {
 	safesleep(philo_d, philo_d->shared->die);
-	return (STARVED);
+	return (CASUALTIES);
 }
 
 static int	grab_forks(t_philo *philo_d, int right_fork)
@@ -45,8 +45,8 @@ int	p_eat(t_philo *philo_d, int *times_ate)
 		right_fork = 0;
 	else
 		right_fork = philo_d->id;
-	if (grab_forks(philo_d, right_fork) == STARVED)
-		ret = STARVED;
+	if (grab_forks(philo_d, right_fork) == CASUALTIES)
+		ret = CASUALTIES;
 	else
 	{
 		print_log(philo_d, "grabbed a fork");

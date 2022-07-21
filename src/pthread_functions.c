@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/08 14:12:17 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/29 15:13:45 by jhille        ########   odam.nl         */
+/*   Updated: 2022/04/12 17:27:33 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,27 @@ static int	handle_thread_error(pthread_t *threads, t_philo *philo, int i)
 	return (-1);
 }
 
-int	init_philosophers(pthread_t *threads, \
+static int	init_philosophers(pthread_t *threads, t_time *starttime, \
 					t_philo *philo_d, t_data *data)
 {
-	int				i;
-	struct timeval	time;
+	int	i;
 
 	i = 0;
-	gettimeofday(&time, NULL);
 	while (i < data->num_philos)
 	{
 		philo_d[i].id = i + 1;
 		if (data->num_eat == -1)
 			philo_d[i].times_ate = -2;
 		philo_d[i].shared = data;
-		philo_d[i].start.tv_sec = time.tv_sec;
-		philo_d[i].start.tv_usec = time.tv_usec;
-		philo_d[i].lastmeal.tv_sec = time.tv_sec;
-		philo_d[i].lastmeal.tv_usec = time.tv_usec;
+		i++;
+	}
+	i = 0;
+	gettimeofday(starttime, NULL);
+	data->start = (starttime->tv_sec * 1000) + (starttime->tv_usec / 1000);
+	while (i < data->num_philos)
+	{
+		philo_d[i].lastmeal.tv_sec = starttime->tv_sec;
+		philo_d[i].lastmeal.tv_usec = starttime->tv_usec;
 		if (pthread_create(threads + i, NULL, philo_loop, philo_d + i) == -1)
 			return (handle_thread_error(threads, philo_d, i - 1));
 		i++;
@@ -73,17 +76,19 @@ int	run_threads(t_data *data)
 {
 	pthread_t	*threads;
 	t_philo		*philo_d;
+	t_time		starttime;
 	int			i;
 
 	i = 0;
 	if (malloc_philosophers(&threads, &philo_d, data) == -1)
 		return (-1);
-	if (init_philosophers(threads, philo_d, data) == -1)
+	if (init_philosophers(threads, &starttime, philo_d, data) == -1)
 	{
 		free(threads);
 		free(philo_d);
 		return (-1);
 	}
+	monitor_philos(philo_d, data);
 	while (i < data->num_philos)
 	{
 		pthread_join(threads[i], NULL);

@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/04 14:02:37 by jhille        #+#    #+#                 */
-/*   Updated: 2022/04/08 13:30:09 by jhille        ########   odam.nl         */
+/*   Updated: 2022/04/12 17:23:21 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	print_death(t_philo *philo_d, t_data *data, t_time *current_time)
 	high_priority_gate(data);
 	data->abort = CASUALTIES;
 	printf("%ld %d died\n", \
-		getmlsec(current_time) - philo_d->start, philo_d->id);
+		getmlsec(current_time) - philo_d->shared->start, philo_d->id);
 	high_priority_exit(data);
 	pthread_mutex_unlock(data->meal_mutexes + (philo_d->id - 1));
 	return ;
@@ -37,7 +37,7 @@ static void	single_philo(t_philo *philo_d, t_time *current_time, int die)
 	while (1)
 	{
 		gettimeofday(current_time, NULL);
-		time_passed = getmlsec(current_time) - philo_d->start;
+		time_passed = getmlsec(current_time) - philo_d->shared->start;
 		if (time_passed > die)
 			break ;
 		else if (die - time_passed > 5)
@@ -48,7 +48,7 @@ static void	single_philo(t_philo *philo_d, t_time *current_time, int die)
 	high_priority_gate(philo_d->shared);
 	philo_d->shared->abort = CASUALTIES;
 	printf("%ld %d died\n", \
-		getmlsec(current_time) - philo_d->start, 1);
+		getmlsec(current_time) - philo_d->shared->start, 1);
 	high_priority_exit(philo_d->shared);
 }
 
@@ -66,11 +66,11 @@ void	monitor_philos(t_philo *philo_d, t_data *data)
 	{
 		gettimeofday(&current_time, NULL);
 		pthread_mutex_lock(data->meal_mutexes + i);
-		if (philo_d[i].id == -2)
+		if (philo_d[i].amidead == 1)
 			exit_i++;
 		else
 			exit_i = 0;
-		if (philo_d[i].id != -2 && \
+		if (philo_d[i].amidead != 1 && \
 			compare_time(&current_time, &philo_d[i].lastmeal) > data->die)
 			return (print_death(philo_d + i, data, &current_time));
 		pthread_mutex_unlock(data->meal_mutexes + i);

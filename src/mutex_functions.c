@@ -6,7 +6,7 @@
 /*   By: jhille <jhille@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/22 16:05:52 by jhille        #+#    #+#                 */
-/*   Updated: 2022/03/25 13:42:31 by jhille        ########   odam.nl         */
+/*   Updated: 2022/04/08 14:00:10 by jhille        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void	cleanup_mutexes(t_data *data)
 	while (i)
 	{
 		pthread_mutex_destroy(data->forks + i);
+		pthread_mutex_destroy(data->meal_mutexes + i);
 		i++;
 	}
-	pthread_mutex_destroy(data->lhm_gates + 0);
-	pthread_mutex_destroy(data->lhm_gates + 1);
-	pthread_mutex_destroy(data->lhm_gates + 2);
+	pthread_mutex_destroy(data->lh_gates + 0);
+	pthread_mutex_destroy(data->lh_gates + 1);
 	free(data->forks);
-	free(data->lhm_gates);
+	free(data->meal_mutexes);
+	free(data->lh_gates);
 }
 
 static void	mutex_init_error_cleanup(pthread_mutex_t *mutex_array, int i)
@@ -63,13 +64,20 @@ static pthread_mutex_t	*init_n_mutexes(int n)
 
 int	init_mutexes(t_data *data)
 {
-	data->lhm_gates = init_n_mutexes(3);
-	if (!data->lhm_gates)
+	data->lh_gates = init_n_mutexes(2);
+	if (!data->lh_gates)
 		return (-1);
 	data->forks = init_n_mutexes(data->num_philos);
 	if (!data->forks)
 	{
-		mutex_init_error_cleanup(data->lhm_gates, data->num_philos);
+		mutex_init_error_cleanup(data->lh_gates, data->num_philos);
+		return (-1);
+	}
+	data->meal_mutexes = init_n_mutexes(data->num_philos);
+	if (!data->meal_mutexes)
+	{
+		mutex_init_error_cleanup(data->lh_gates, 2);
+		mutex_init_error_cleanup(data->forks, data->num_philos);
 		return (-1);
 	}
 	return (0);

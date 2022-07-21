@@ -1,6 +1,8 @@
 
 NAME = philo
 
+VPATH = src:src/input
+
 SRC_FILES = main.c\
 			philo_loop.c\
 			p_eat.c\
@@ -18,7 +20,7 @@ INPUT_FILES = get_parameters.c\
 
 OBJ = $(addprefix obj/, $(SRC_FILES:.c=.o))
 
-INC = -I.
+INC = -Iinclude
 
 CFLAGS = -Wextra -Wall -Werror $(INC) -pthread -o3
 all: $(NAME)
