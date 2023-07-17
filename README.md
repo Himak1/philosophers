@@ -9,7 +9,7 @@ A solution to The Dining Philosophers problem, serving as an introduction to mul
 - when philosophers change state, an update with the current time in ms is outputted and lines may not be scrambled between philosophers.
 - there cannot be more than 10ms delay between a philosophers death and their death message.
 
-# Usage
+## Usage
 #### build
 Run ```make``` in the project's root directory.
 
